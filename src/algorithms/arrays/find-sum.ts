@@ -3,7 +3,7 @@
  * find two numbers in the array that sum up to the target k.
  *
  * Time complexity O(n) - where n is the number of elements in the array
- * Space complecity (On) - where n is the size of the Map
+ * Space complecity O(n) - where n is the size of the Map
  *
  * @param {number[]} nums - The input array of numbers;
  * @param {number} k - The target number that two elements in the nums array sum up to
