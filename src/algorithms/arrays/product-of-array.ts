@@ -42,20 +42,22 @@
 //     return product;
 // }
 
-export function findProduct(nums: number[]) {
+export function findProduct(nums: number[]): number[] {
+    
     if (!Array.isArray(nums)) {
-        throw new TypeError("Valid an array of integer is required");
+        throw new TypeError("Valid an array of integer is required") as never;
     }
 
-    const n = nums.length;
-    const result = new Array(n);
+    const n: number = nums.length;
+    const result: number[] = new Array(n);
     result[0] = 1;
 
     for (let i = 1; i < n; i++) {
         result[i] = result[i - 1] * nums[i - 1];
     }
 
-    let rightProduct = 1;
+    let rightProduct: number = 1;
+
     for (let i = n - 1; i >= 0; i--) {
         result[i] *= rightProduct;
         rightProduct *= nums[i];
