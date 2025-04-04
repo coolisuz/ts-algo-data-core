@@ -2,7 +2,7 @@
  * Given an array, nums, and an integer, k, rotate the array to
  * the right by k positions so that each rotation involves shifting
  * the elements one position at a time.
- * Time complexity O(n) - where n is the length of the array
+ * Time complexity (k*n) - where n is the length of the array and k is the number of rotations
  * Space complecity O(1) - no extra memory used
  *
  * @param {number[]} arr - The input array of numbers
