@@ -17,7 +17,6 @@
  * The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer
  */
 
-
 // Brute force approach with O(n^2) time complexity
 // export function findProduct(nums: number[]): number[] {
 //     if (!Array.isArray(nums)) {
@@ -43,7 +42,6 @@
 // }
 
 export function findProduct(nums: number[]): number[] {
-    
     if (!Array.isArray(nums)) {
         throw new TypeError("Valid an array of integer is required") as never;
     }
