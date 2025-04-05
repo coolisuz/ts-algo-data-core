@@ -38,5 +38,45 @@ describe('LinkedList', () => {
             list.append(1).append(2).append(3);
             expect(list.search(3)).toEqual(true);
         });
-    })
+    });
+
+    describe('deleteByValue', () => {
+        test('should return false for empty list', () => {
+            expect(list.deleteByValue(5)).toBe(false);
+            expect(list.getSize()).toBe(0);
+        });
+
+        test('should delete head node', () => {
+            list.append(1).append(2).append(3);
+            expect(list.deleteByValue(1)).toBe(true);
+            expect(list.getSize()).toBe(2);
+            expect(list.search(1)).toBe(false);
+        });
+
+        test('should delete middle node', () => {
+            list.append(1).append(2).append(3);
+            expect(list.deleteByValue(2)).toBe(true);
+            expect(list.getSize()).toBe(2);
+            expect(list.search(2)).toBe(false);
+        });
+
+        test('should delete tail node', () => {
+            list.append(1).append(2).append(3);
+            expect(list.deleteByValue(3)).toBe(true);
+            expect(list.getSize()).toBe(2);
+            expect(list.search(3)).toBe(false);
+        });
+
+        test('should return false when value not found', () => {
+            list.append(1).append(2);
+            expect(list.deleteByValue(3)).toBe(false);
+            expect(list.getSize()).toBe(2);
+        });
+
+        test('should handle single node list', () => {
+            list.append(1);
+            expect(list.deleteByValue(1)).toBe(true);
+            expect(list.getSize()).toBe(0);
+        });
+    });
 })

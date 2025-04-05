@@ -68,4 +68,33 @@ export class LinkedList<T> {
 
         return false;
     }
+
+
+
+
+    /** Finds and deletes the value from the list
+     * @time O(n) - Requires traversing entire list in worst case scenario
+     * @space O(1) - No extra space used, (constants dropped)
+     * @returns boolean
+     */
+    deleteByValue(value: T): boolean {
+        if (!this.head) return false;
+    
+        if (this.head.data === value) {
+            this.head = this.head.next;
+            this.size--;
+            return true;
+        }
+    
+        let current = this.head;
+        while (current.next) {
+            if (current.next.data === value) {
+                current.next = current.next.next;
+                this.size--;
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
 }
