@@ -49,4 +49,23 @@ export class LinkedList<T> {
     getSize(): number {
         return this.size;
     }
+
+    /** Finds the value in the list
+     * @time O(n) - Requires traversing to the end of the list
+     * @space O(1) - No extra space used
+     * @returns boolean
+     */
+    search(value: T): boolean {
+        let current = this.head;
+
+        while (current !== null) {
+            if (current.data === value) {
+                return true;
+            }
+
+            current = current.next;
+        }
+
+        return false;
+    }
 }

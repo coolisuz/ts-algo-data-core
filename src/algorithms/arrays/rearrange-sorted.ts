@@ -78,4 +78,3 @@ export function rearrangeSorted(arr: number[]): number[] {
 
     return arr;
 }
-

@@ -23,4 +23,20 @@ describe('LinkedList', () => {
             expect(result).toEqual(list);
         })
     });
+
+    describe('search', () => {
+        test('should return false for an empty list', () => {
+            expect(list.search(5)).toEqual(false);
+        });
+
+        test('should return false for a non empty list', () => {
+            list.append(1).append(2).append(3);
+            expect(list.search(4)).toEqual(false);
+        });
+
+        test('should return true when value found in the list', () => {
+            list.append(1).append(2).append(3);
+            expect(list.search(3)).toEqual(true);
+        });
+    })
 })
