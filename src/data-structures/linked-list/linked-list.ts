@@ -135,4 +135,15 @@ export class LinkedList<T> {
         this.size--;
         return this;
     }
+
+
+    /**
+     * Returns the number of nodes in the list
+     * @time O(1) - Uses stored size value
+     * @space O(1) - No additional space needed
+     * @returns The number of nodes
+     */
+    length(): number {
+        return this.size;
+    }
 }

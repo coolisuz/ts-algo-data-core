@@ -125,4 +125,15 @@ describe('LinkedList', () => {
             expect(list.search(3)).toBe(false);
         });
     });
+
+    describe('length', () => {
+        test('should return 0 for an empty list', () => {
+            expect(list.length()).toBe(0);
+        });
+    
+        test('should return correct count for non-empty list', () => {
+            list.append(1).append(2).append(3);
+            expect(list.length()).toBe(3);
+        });
+    });
 })
