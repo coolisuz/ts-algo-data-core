@@ -170,4 +170,83 @@ export class LinkedList<T> {
         }
         return this;
     }
+
+    /**
+     * Return head node of the list
+     * @time O(1) - Accesses only the head
+     * @space O(1) - No extra space used
+     * @returns {Node<T>} The head node of the List
+     */
+    getHead(): Node<T> | null {
+        return this.head;
+    }
+
+    /**
+     * Create a uniq nodes out of two List heads
+     * @time O(n+m) - Requires traversing to the end of the Head node where n = head1 and m = head2
+     * @space O(n) - Where n is the number of unique nodes.
+     * @returns {LinkedList<T>} The new list instance
+     */
+    union(head1: Node<T>, head2: Node<T>): LinkedList<T> {
+        const uniqueNodes = new Set<T>();
+        findUniqueNode(head1);
+        findUniqueNode(head2);
+
+        const newList = new LinkedList<T>();
+
+        uniqueNodes.forEach((node) => newList.append(node));
+
+        function findUniqueNode(head: Node<T>): void {
+            if (!head) return;
+
+            let current: Node<T> | null = head;
+
+            while (current !== null) {
+                if (!uniqueNodes.has(current.data)) {
+                    uniqueNodes.add(current.data);
+                }
+
+                current = current.next;
+            }
+
+            return;
+        }
+
+        return newList;
+    }
+
+    /**
+     * Create a common nodes in two List heads
+     * @time O(n+m) - Requires traversing to the end of the Head node where n = head1 and m = head2
+     * @space O(n) - Where n is the number of common nodes.
+     * @returns {LinkedList<T>} The new list instance
+     */
+    intersection(head1: Node<T>, head2: Node<T>): LinkedList<T> {
+        const frequencyMap = new Map();
+        findUniqueNode(head1);
+        findUniqueNode(head2);
+
+        const newList = new LinkedList<T>();
+
+        frequencyMap.forEach((count, data) => {
+            if (count > 1) newList.append(data);
+        });
+
+        function findUniqueNode(head: Node<T>): void {
+            if (!head) return;
+
+            let current: Node<T> | null = head;
+
+            while (current !== null) {
+                const currentValue = frequencyMap.get(current.data) ?? 0;
+                frequencyMap.set(current.data, currentValue + 1);
+
+                current = current.next;
+            }
+
+            return;
+        }
+
+        return newList;
+    }
 }

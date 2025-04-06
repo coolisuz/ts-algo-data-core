@@ -168,4 +168,89 @@ describe('LinkedList', () => {
             expect(list.search(5)).toBe(true);
         });
     });
+
+    describe('union', () => {
+        test('should return union of two lists', () => {
+            const list1 = new LinkedList<number>();
+            const list2 = new LinkedList<number>();
+            const list = new LinkedList<number>();
+    
+            list1.append(1).append(2).append(3);
+            list2.append(3).append(4).append(5);
+    
+            const unionList = list.union(list1.getHead()!, list2.getHead()!);
+    
+            expect(unionList.getSize()).toBe(5);
+            expect(unionList.search(1)).toBe(true);
+            expect(unionList.search(2)).toBe(true);
+            expect(unionList.search(3)).toBe(true);
+            expect(unionList.search(4)).toBe(true);
+            expect(unionList.search(5)).toBe(true);
+        });
+        
+        test('should handle empty lists', () => {
+            const list1 = new LinkedList<number>();
+            const list2 = new LinkedList<number>();
+            const list = new LinkedList<number>();
+            
+            const unionList = list.union(list1.getHead()!, list2.getHead()!);
+            
+            expect(unionList.getSize()).toBe(0);
+        });
+        
+        test('should handle one empty list', () => {
+            const list1 = new LinkedList<number>();
+            const list2 = new LinkedList<number>();
+            const list = new LinkedList<number>();
+            
+            list1.append(1).append(2);
+            
+            const unionList = list.union(list1.getHead()!, list2.getHead()!);
+            
+            expect(unionList.getSize()).toBe(2);
+            expect(unionList.search(1)).toBe(true);
+            expect(unionList.search(2)).toBe(true);
+        });
+    });
+
+    describe('intersection', () => {
+        test('should return intersection of two lists with common elements', () => {
+            const list1 = new LinkedList<number>();
+            const list2 = new LinkedList<number>();
+            const list = new LinkedList<number>();
+    
+            list1.append(1).append(2).append(3).append(4);
+            list2.append(3).append(4).append(5).append(6);
+    
+            const intersectionList = list.intersection(list1.getHead()!, list2.getHead()!);
+            
+            expect(intersectionList.getSize()).toBe(2);
+            expect(intersectionList.search(3)).toBe(true);
+            expect(intersectionList.search(4)).toBe(true);
+            expect(intersectionList.search(1)).toBe(false);
+        });
+        
+        test('should return empty list when no common elements', () => {
+            const list1 = new LinkedList<number>();
+            const list2 = new LinkedList<number>();
+            const list = new LinkedList<number>();
+            
+            list1.append(1).append(2);
+            list2.append(3).append(4);
+            
+            const intersectionList = list.intersection(list1.getHead()!, list2.getHead()!);
+            
+            expect(intersectionList.getSize()).toBe(0);
+        });
+        
+        test('should handle empty lists', () => {
+            const list1 = new LinkedList<number>();
+            const list2 = new LinkedList<number>();
+            const list = new LinkedList<number>();
+            
+            const intersectionList = list.intersection(list1.getHead()!, list2.getHead()!);
+            
+            expect(intersectionList.getSize()).toBe(0);
+        });
+    });
 })
