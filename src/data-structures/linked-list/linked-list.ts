@@ -97,4 +97,42 @@ export class LinkedList<T> {
         }
         return false;
     }
+
+    /**
+     * Deletes the head node of the list
+     * @time O(1) - Constant time operation
+     * @space O(1) - No extra space used
+     * @returns The list for method chaining
+     */
+    deleteAtHead(): LinkedList<T> {
+        if (!this.head) return this;
+        
+        this.head = this.head.next;
+        this.size--;
+        return this;
+    }
+
+    /**
+     * Deletes the tail node of the list
+     * @time O(n) - Requires traversing to the end of the list
+     * @space O(1) - No extra space used
+     * @returns The list for method chaining
+     */
+    deleteAtTail(): LinkedList<T> {
+        if (!this.head) return this;
+
+        if (this.head.next === null) {
+            this.head = null;
+        } else {
+            let current = this.head;
+
+            while (current.next !== null && current.next.next !== null) {
+                current = current.next;
+            }
+            current.next = null;
+        }
+        
+        this.size--;
+        return this;
+    }
 }

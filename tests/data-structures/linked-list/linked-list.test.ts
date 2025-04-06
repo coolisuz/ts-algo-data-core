@@ -79,4 +79,50 @@ describe('LinkedList', () => {
             expect(list.getSize()).toBe(0);
         });
     });
+
+    describe('deleteAtHead', () => {
+        test('should do nothing when list is empty', () => {
+            list.deleteAtHead();
+            expect(list.getSize()).toBe(0);
+        });
+
+        test('should delete the only node when list has one element', () => {
+            list.append(1);
+            list.deleteAtHead();
+            expect(list.getSize()).toBe(0);
+            expect(list.search(1)).toBe(false);
+        });
+
+        test('should delete head node when list has multiple elements', () => {
+            list.append(1).append(2).append(3);
+            list.deleteAtHead();
+            expect(list.getSize()).toBe(2);
+            expect(list.search(1)).toBe(false);
+            expect(list.search(2)).toBe(true);
+            expect(list.search(3)).toBe(true);
+        });
+    });
+
+    describe('deleteAtTail', () => {
+        test('should do nothing when list is empty', () => {
+            list.deleteAtTail();
+            expect(list.getSize()).toBe(0);
+        });
+
+        test('should delete the only node when list has one element', () => {
+            list.append(1);
+            list.deleteAtTail();
+            expect(list.getSize()).toBe(0);
+            expect(list.search(1)).toBe(false);
+        });
+
+        test('should delete tail node when list has multiple elements', () => {
+            list.append(1).append(2).append(3);
+            list.deleteAtTail();
+            expect(list.getSize()).toBe(2);
+            expect(list.search(1)).toBe(true);
+            expect(list.search(2)).toBe(true);
+            expect(list.search(3)).toBe(false);
+        });
+    });
 })
