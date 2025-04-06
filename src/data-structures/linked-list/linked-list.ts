@@ -22,7 +22,7 @@ export class LinkedList<T> {
      *
      * @time O(n) - Requires traversing to the end of the list
      * @space O(1) - No extra space used
-     * @returns The list for method chaining
+     * @returns {LinkedList<T>} The modified list instance for method chaining
      */
     append(data: T): LinkedList<T> {
         const newNode = new Node(data);
@@ -69,9 +69,6 @@ export class LinkedList<T> {
         return false;
     }
 
-
-
-
     /** Finds and deletes the value from the list
      * @time O(n) - Requires traversing entire list in worst case scenario
      * @space O(1) - No extra space used, (constants dropped)
@@ -79,13 +76,13 @@ export class LinkedList<T> {
      */
     deleteByValue(value: T): boolean {
         if (!this.head) return false;
-    
+
         if (this.head.data === value) {
             this.head = this.head.next;
             this.size--;
             return true;
         }
-    
+
         let current = this.head;
         while (current.next) {
             if (current.next.data === value) {
@@ -102,11 +99,11 @@ export class LinkedList<T> {
      * Deletes the head node of the list
      * @time O(1) - Constant time operation
      * @space O(1) - No extra space used
-     * @returns The list for method chaining
+     * @returns {LinkedList<T>} The modified list instance for method chaining
      */
     deleteAtHead(): LinkedList<T> {
         if (!this.head) return this;
-        
+
         this.head = this.head.next;
         this.size--;
         return this;
@@ -116,7 +113,7 @@ export class LinkedList<T> {
      * Deletes the tail node of the list
      * @time O(n) - Requires traversing to the end of the list
      * @space O(1) - No extra space used
-     * @returns The list for method chaining
+     * @returns {LinkedList<T>} The modified list instance for method chaining
      */
     deleteAtTail(): LinkedList<T> {
         if (!this.head) return this;
@@ -131,11 +128,10 @@ export class LinkedList<T> {
             }
             current.next = null;
         }
-        
+
         this.size--;
         return this;
     }
-
 
     /**
      * Returns the number of nodes in the list
@@ -145,5 +141,33 @@ export class LinkedList<T> {
      */
     length(): number {
         return this.size;
+    }
+
+    /**
+     * Deletes the duplicate node of the list
+     * @time O(n) - Requires traversing to the end of the list
+     * @space O(n) - Worst case requires storing all unique values in Set
+     * @returns {LinkedList<T>} The modified list instance for method chaining
+     */
+    removeDuplicate(): LinkedList<T> {
+        if (!this.head) return this;
+
+        const seenValues = new Set<T>();
+        let previous: Node<T> | null = null;
+        let current = this.head;
+
+        while (current !== null) {
+            if (seenValues.has(current.data)) {
+                if (previous) previous.next = current.next;
+
+                this.size--;
+            } else {
+                seenValues.add(current.data);
+                previous = current;
+            }
+
+            current = current.next as Node<T>;
+        }
+        return this;
     }
 }

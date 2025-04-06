@@ -136,4 +136,36 @@ describe('LinkedList', () => {
             expect(list.length()).toBe(3);
         });
     });
+
+    describe('removeDuplicate', () => {
+        test('should do nothing on empty list', () => {
+            const list = new LinkedList<number>();
+            list.removeDuplicate();
+            expect(list.getSize()).toBe(0);
+        });
+    
+        test('should remove consecutive duplicates', () => {
+            const list = new LinkedList<number>();
+            list.append(1).append(2).append(2).append(3);
+            list.removeDuplicate();
+            expect(list.getSize()).toBe(3);
+            expect(list.search(2)).toBe(true);
+        });
+    
+        test('should remove non-consecutive duplicates', () => {
+            const list = new LinkedList<string>();
+            list.append('a').append('b').append('a').append('c');
+            list.removeDuplicate();
+            expect(list.getSize()).toBe(3);
+            expect(list.search('a')).toBe(true);
+        });
+    
+        test('should handle all duplicates', () => {
+            const list = new LinkedList<number>();
+            list.append(5).append(5).append(5);
+            list.removeDuplicate();
+            expect(list.getSize()).toBe(1);
+            expect(list.search(5)).toBe(true);
+        });
+    });
 })
