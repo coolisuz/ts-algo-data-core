@@ -183,6 +183,8 @@ export class LinkedList<T> {
 
     /**
      * Create a uniq nodes out of two List heads
+     * @param {Node<T>} head1 - The head of a Linked List
+     * @param {Node<T>} head2 - The head of a Linked List
      * @time O(n+m) - Requires traversing to the end of the Head node where n = head1 and m = head2
      * @space O(n) - Where n is the number of unique nodes.
      * @returns {LinkedList<T>} The new list instance
@@ -248,5 +250,33 @@ export class LinkedList<T> {
         }
 
         return newList;
+    }
+
+    /**
+     * Find nth Node from the back
+     * @param {number} n - Target node number from the back of the Linked List
+     * @time O(n) - Requires traversing the entire list once
+     * @space O(1) - No extra space used
+     * @returns {T | null} - Returns the data of the target node or null
+     */
+    findNthFromBack(n: number): T | null {
+        if (!this.head || n <= 0) {
+            return null;
+        }
+
+        let fast: Node<T> | null = this.head;
+        let slow: Node<T> | null = this.head;
+
+        for (let i = 0; i < n; i++) {
+            if (!fast) return null;
+            fast = fast.next;
+        }
+
+        while (fast) {
+            slow = slow!.next;
+            fast = fast.next;
+        }
+
+        return slow!.data;
     }
 }

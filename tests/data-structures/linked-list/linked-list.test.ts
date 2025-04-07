@@ -253,4 +253,33 @@ describe('LinkedList', () => {
             expect(intersectionList.getSize()).toBe(0);
         });
     });
+
+    describe('findNthFromBack', () => {
+        let list: LinkedList<number>;
+      
+        beforeEach(() => {
+          list = new LinkedList<number>();
+        });
+      
+        test('should return null for empty list', () => {
+          expect(list.findNthFromBack(1)).toBeNull();
+        });
+      
+        test('should return null when n is greater than list length', () => {
+          list.append(1).append(2).append(3);
+          expect(list.findNthFromBack(4)).toBeNull();
+        });
+      
+        test('should return the head when n equals list length', () => {
+          list.append(10).append(20).append(30);
+          expect(list.findNthFromBack(3)).toBe(10);
+        });
+      
+        test('should return correct nth node from the end', () => {
+          list.append(5).append(10).append(15).append(20).append(25);
+          expect(list.findNthFromBack(2)).toBe(20);  // Second from end
+          expect(list.findNthFromBack(1)).toBe(25);  // Last element
+          expect(list.findNthFromBack(5)).toBe(5);   // First element
+        });
+      });
 })
