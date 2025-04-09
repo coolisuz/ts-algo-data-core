@@ -26,7 +26,6 @@ export function reverseQueueFirstK(
     queue: Queue<number>,
     k: number,
 ): Queue<number> | null {
-
     if (!queue || !(queue instanceof Queue)) {
         throw new TypeError("First argument must be a valid Queue");
     }
@@ -35,11 +34,9 @@ export function reverseQueueFirstK(
         return null;
     }
 
-
     if (queue.isEmpty() || k === 0) {
         return queue;
     }
-
 
     const stack = new StackLinkedList<number>();
     const newQueue = new Queue<number>();
