@@ -53,7 +53,6 @@ export class Graph<T> {
     /**
      * Returns a string representation of the graph
      * 
-     * @returns String representation of the graph
      */
     toString(): string {
         let str = "";
@@ -68,5 +67,19 @@ export class Graph<T> {
             str += "null\n";
         }
         return str;
+    }
+
+    /**
+     * @returns the number of vertices/nodes in the graph 
+     */
+    getVertices(): number {
+        return this.vertices;
+    }
+
+    /**
+     * @returns the adjacency list representation of the graph
+     */
+    getList(): LinkedList<number>[] {
+        return this.list;
     }
 }
