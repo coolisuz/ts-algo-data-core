@@ -18,6 +18,27 @@ export class LinkedList<T> {
     }
 
     /**
+     * Appends a value to the front of the list.
+     *
+     * @time O(1) - No traversing the list requiered
+     * @space O(1) - No extra space used
+     * @returns {LinkedList<T>} The modified list instance for method chaining
+     */
+    prepend(data: T): LinkedList<T> {
+        const newNode = new Node(data);
+
+        if (!this.head) {
+            this.head = newNode;
+        } else {
+            newNode.next = this.head;
+            this.head = newNode;
+        }
+        
+        this.size++;
+        return this;
+    }
+
+    /**
      * Appends a value to the end of the list.
      *
      * @time O(n) - Requires traversing to the end of the list
