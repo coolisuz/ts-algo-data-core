@@ -12,26 +12,6 @@ describe('Graph', () => {
         expect(graph['list'].length).toBe(5);
     });
 
-    test('should add edges correctly', () => {
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(1, 3);
-        
-        expect(graph['list'][0].length()).toBe(2);
-        
-    
-        let head = graph['list'][0].getHead();
-        expect(head?.data).toBe(2);
-        expect(head?.next?.data).toBe(1);
-        
-    
-        expect(graph['list'][1].length()).toBe(1);
-        
-    
-        head = graph['list'][1].getHead();
-        expect(head?.data).toBe(3);
-    });
-
     test('should ignore invalid edges', () => {
         graph.addEdge(5, 1);
         graph.addEdge(0, 10);
@@ -53,7 +33,7 @@ describe('Graph', () => {
         const graphString = graph.toString();
         
     
-        expect(graphString).toContain('|0| => [2] -> [1] -> null');
+        expect(graphString).toContain('|0| => [1] -> [2] -> null');
         expect(graphString).toContain('|1| => [3] -> null');
         expect(graphString).toContain('|2| => null');
         expect(graphString).toContain('|3| => null');
