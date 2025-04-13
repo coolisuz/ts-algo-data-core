@@ -14,8 +14,7 @@
  */
 
 import { Graph } from "../../data-structures/graph/graph.ts";
-import { Queue } from '../../data-structures/queue/index.ts';
-
+import { Queue } from "../../data-structures/queue/index.ts";
 
 export function traverseBfs(graph: Graph<number>, source: number) {
     if (!graph.getVertices()) {
@@ -32,14 +31,12 @@ export function traverseBfs(graph: Graph<number>, source: number) {
 
     while (!queue.isEmpty()) {
         const vertex = queue.dequeue();
-        
-        if (vertex !== undefined) {
 
+        if (vertex !== undefined) {
             result.push(vertex);
-            
+
             const neighbors = list[vertex].getHead();
             let current = neighbors;
-            
 
             while (current !== null) {
                 if (!visited[current.data]) {

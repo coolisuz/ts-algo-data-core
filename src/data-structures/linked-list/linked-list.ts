@@ -33,7 +33,7 @@ export class LinkedList<T> {
             newNode.next = this.head;
             this.head = newNode;
         }
-        
+
         this.size++;
         return this;
     }

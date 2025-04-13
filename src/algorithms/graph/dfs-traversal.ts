@@ -13,9 +13,8 @@
  * -1000 ≤ graph[i][j] ≤ 1000
  */
 
-import { Stack } from '../../data-structures/stack/index.ts';
-import { Graph } from '../../data-structures/graph/index.ts';
-
+import { Stack } from "../../data-structures/stack/index.ts";
+import { Graph } from "../../data-structures/graph/index.ts";
 
 export function traverseDfs(graph: Graph<number>, source: number) {
     if (!graph.getVertices()) {
@@ -30,7 +29,7 @@ export function traverseDfs(graph: Graph<number>, source: number) {
     stack.push(source);
     visited[source] = true;
 
-    while(!stack.isEmpty()) {
+    while (!stack.isEmpty()) {
         const vertex = stack.pop();
 
         if (vertex !== undefined) {
@@ -49,6 +48,6 @@ export function traverseDfs(graph: Graph<number>, source: number) {
             }
         }
     }
-    
+
     return result;
 }

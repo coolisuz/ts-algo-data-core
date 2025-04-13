@@ -6,7 +6,7 @@ export class Graph<T> {
 
     /**
      * Creates a new graph with the specified number of vertices
-     * 
+     *
      * @param vertices - Number of vertices (nodes) to initialize
      */
     constructor(vertices: number) {
@@ -21,7 +21,7 @@ export class Graph<T> {
 
     /**
      * Adds a directed edge from source to destination
-     * 
+     *
      * @param source - Index of the source vertex
      * @param destination - Index of the destination vertex
      * @returns The modified graph instance for method chaining
@@ -41,7 +41,7 @@ export class Graph<T> {
         for (let i = 0; i < this.list.length; i++) {
             process.stdout.write(`|${i}| => `);
             let temp = this.list[i].getHead();
-            
+
             while (temp !== null) {
                 process.stdout.write(`[${temp.data}] -> `);
                 temp = temp.next;
@@ -52,14 +52,14 @@ export class Graph<T> {
 
     /**
      * Returns a string representation of the graph
-     * 
+     *
      */
     toString(): string {
         let str = "";
         for (let i = 0; i < this.list.length; i++) {
             str += `|${i}| => `;
             let temp = this.list[i].getHead();
-            
+
             while (temp !== null) {
                 str += `[${temp.data}] -> `;
                 temp = temp.next;
@@ -70,7 +70,7 @@ export class Graph<T> {
     }
 
     /**
-     * @returns the number of vertices/nodes in the graph 
+     * @returns the number of vertices/nodes in the graph
      */
     getVertices(): number {
         return this.vertices;
