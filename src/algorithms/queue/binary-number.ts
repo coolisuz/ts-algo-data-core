@@ -36,12 +36,20 @@ export function generateBinaryNumber(n: number): string[] {
     return result;
 }
 
-/** Recursive divisive method of getting binary form of a number */
-// function getBinary(num: number): string {
-//     if (num === 0) return "0";
-//     if (num === 1) return "1";
+/** Recursive divisive method of getting binary form of a number 
+ * 
+ * @time O(log n) - where n is the input number as each recursive call divides n by 2
+ * @space O(log n) - the recursion stack depth equals the number of binary digits in n (log₂ n)
+ *
+ * @param {number} num - The decimal number to convert
+ * @returns {string} - The binary representation of the input number
+ * 
+*/
+export function getBinary(num: number): string {
+    if (num === 0) return "0";
+    if (num === 1) return "1";
 
-//     let remainder = num  % 2;
+    let remainder = num  % 2;
 
-//     return getBinary(Math.floor(num /2 )) + remainder;
-// }
+    return getBinary(Math.floor(num /2 )) + remainder;
+}
