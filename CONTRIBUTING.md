@@ -5,6 +5,9 @@
 I follow the [Conventional Commits](https://www.conventionalcommits.org/) specification with specific scopes for better organization.
 
 ### Format
+```
+type(scope): brief description
+```
 
 ### Types
 - `feat`: A new feature
