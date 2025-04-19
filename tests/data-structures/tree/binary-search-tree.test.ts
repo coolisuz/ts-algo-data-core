@@ -84,4 +84,32 @@ describe('BST', () => {
             expect(nodeCount).toBe(2);
         });
     });
+
+    describe('preOrderPrint', () => {
+        test('should return values in pre-order traversal sequence', () => {
+            const bst = new BST<number>();
+            // tree:
+            //      10
+            //     /  \
+            //    5    15
+            //   / \
+            //  3   7
+            bst.insert(10).insert(5).insert(15).insert(3).insert(7);
+            
+            // Pre-order traversal should visit: root, left, right
+            const result = bst.preOrderPrint(bst.root);
+            
+            expect(result).toEqual([10, 5, 3, 7, 15]);
+        });
+        
+        test('should return empty array for null node', () => {
+            const bst = new BST<number>();
+            
+            expect(bst.preOrderPrint(null)).toEqual([]);
+            
+            bst.insert(42);
+            
+            expect(bst.preOrderPrint(bst.root?.leftChild)).toEqual([]);
+        });
+    });
 });

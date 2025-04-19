@@ -11,5 +11,6 @@ export interface IBinarySearchTree<T> {
         currentNode: IBinaryTreeNode<T> | null,
         newValue: T,
     ): IBinaryTreeNode<T>;
+    preOrderPrint(currentNode: IBinaryTreeNode<T> | null): T[];
     print(): IBinarySearchTree<T>;
 }
