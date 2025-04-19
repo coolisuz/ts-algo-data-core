@@ -36,3 +36,5 @@ type(scope): brief description
 - fix(stack): resolve pop method returning incorrect value
 # refactor(interfaces): add IStack interface
 ! test(stack): add unit tests for pop method
+@@ docs(readme): update installation instructions @@
+~~ style(global): standardize method name casing ~~
