@@ -6,5 +6,10 @@ export interface IBinaryTreeNode<T> {
 
 export interface IBinarySearchTree<T> {
     root: IBinaryTreeNode<T> | null;
-    insert(value: T): void;
+    insert(value: T): IBinarySearchTree<T>;
+    insertV2(
+        currentNode: IBinaryTreeNode<T> | null,
+        newValue: T,
+    ): IBinaryTreeNode<T>;
+    print(): IBinarySearchTree<T>;
 }

@@ -64,6 +64,33 @@ export class BST<T> implements IBinarySearchTree<T> {
     }
 
     /**
+     * Recursively inserts a new value into the tree
+     *
+     * @time O(log n) average case (balanced tree) O(n) worst case (unbalanced tree)
+     * @space O(log n) average case (balanced tree) O(n) worst case (unbalanced tree) - due to recursion stack
+     *
+     * @param {Node<T> | null} currentNode - The current node being examined in the recursive process
+     * @param {T} value - The value to insert into the tree
+     * @returns {Node<T>} The modified subtree with the value inserted
+     */
+    insertV2(currentNode: Node<T> | null, value: T): Node<T> {
+        if (currentNode === null) {
+            return new Node(value);
+        }
+
+        if (value > currentNode.val) {
+            currentNode.rightChild = this.insertV2(
+                currentNode.rightChild,
+                value,
+            );
+        } else if (value < currentNode.val) {
+            currentNode.leftChild = this.insertV2(currentNode.leftChild, value);
+        }
+
+        return currentNode;
+    }
+
+    /**
      * Prints a visual representation of the tree to the console (top to bottom)
      *
      * @time O(n) - Visits each node once
