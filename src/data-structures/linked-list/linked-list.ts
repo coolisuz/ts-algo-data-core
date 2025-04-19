@@ -3,9 +3,10 @@
  *
  * @typeparam T - The type of elements stored in the linked list
  */
+import { ILinkedList } from "../interfaces/index.ts";
 import { Node } from "./node.ts";
 
-export class LinkedList<T> {
+export class LinkedList<T> implements ILinkedList<T> {
     /** Head node of the list */
     private head: Node<T> | null;
 

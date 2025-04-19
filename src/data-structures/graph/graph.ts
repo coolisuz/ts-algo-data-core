@@ -1,6 +1,7 @@
+import { IGraph } from "../interfaces/index.ts";
 import { LinkedList } from "../linked-list/index.ts";
 
-export class Graph<T> {
+export class Graph<T> implements IGraph<T> {
     private vertices: number;
     private list: LinkedList<number>[];
 

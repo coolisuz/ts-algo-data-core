@@ -12,10 +12,10 @@
  *
  * @typeparam T - The type of elements stored in the stack (must extend number)
  */
-
+import { IMinStack } from "../interfaces/index.ts";
 import { StackLinkedList } from "./stack-linked-list.ts";
 
-export class MinStack<T extends number> {
+export class MinStack<T extends number> implements IMinStack<T> {
     private stack: StackLinkedList<T>;
     private minStack: StackLinkedList<T>;
 

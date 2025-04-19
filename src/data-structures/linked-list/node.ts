@@ -3,7 +3,9 @@
  *
  * @typeparam T - The type of data stored in the node
  */
-export class Node<T> {
+import { INode, IDoublyNode } from "../interfaces/index.ts";
+
+export class Node<T> implements INode<T> {
     /** The data stored in this node */
     data: T;
 
@@ -25,7 +27,7 @@ export class Node<T> {
  * Node for Doubly Linked List
  * @typeparam T - The type of data stored in the node
  */
-export class DoublyNode<T> {
+export class DoublyNode<T> implements IDoublyNode<T> {
     /** Data stored in the node */
     data: T;
 

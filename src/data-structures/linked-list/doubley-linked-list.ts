@@ -3,10 +3,10 @@
  *
  * @typeparam T - The type of elements stored in the doubly linked list
  */
-
+import { IDoublyLinkedList } from "../interfaces/index.ts";
 import { DoublyNode } from "./node.ts";
 
-export class DoublyLinkedList<T> {
+export class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
     /** Head node of the list */
     private head: DoublyNode<T> | null;
 
