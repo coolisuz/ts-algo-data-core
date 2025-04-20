@@ -199,4 +199,29 @@ export class BST<T> implements IBinarySearchTree<T> {
 
         return this;
     }
+
+    /**
+     * Searches for a node with the specified value in the binary search tree.
+     *
+     * @time O(log n) average case (balanced tree) and O(n) worst case (unbalanced tree)
+     * @space O(1) - No extra space used regardless of input size
+     *
+     * @param {T} value - The value to search for
+     * @returns {Node<T> | null} The node containing the value or null if not found
+     */
+    search(value: T): Node<T> | null {
+        let currentNode = this.root;
+
+        while (currentNode !== null) {
+            if (currentNode.val === value) return currentNode;
+
+            if (value < currentNode.val) {
+                currentNode = currentNode.leftChild;
+            } else {
+                currentNode = currentNode.rightChild;
+            }
+        }
+
+        return null;
+    }
 }

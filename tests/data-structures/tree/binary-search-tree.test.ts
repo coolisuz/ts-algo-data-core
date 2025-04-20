@@ -192,4 +192,41 @@ describe('BST', () => {
             expect(bst.postOrderPrint(null)).toEqual([]);
         });
     });
+
+    describe('search', () => {
+        test('should find existing value and return the node', () => {
+            const bst = new BST<number>();
+            bst.insert(10).insert(5).insert(15).insert(3).insert(7);
+            
+            const result = bst.search(7);
+            
+            expect(result).not.toBeNull();
+            expect(result?.val).toBe(7);
+            expect(result?.leftChild).toBeNull();
+            expect(result?.rightChild).toBeNull();
+        });
+        
+        test('should return null for value not in the tree', () => {
+            const bst = new BST<number>();
+            bst.insert(10).insert(5).insert(15);
+            
+            const result = bst.search(20);
+            
+            expect(result).toBeNull();
+        });
+        
+        test('should work with different data types', () => {
+            const bst = new BST<string>();
+            bst.insert('banana').insert('apple').insert('cherry');
+            
+            const foundResult = bst.search('apple');
+            expect(foundResult?.val).toBe('apple');
+            
+            const notFoundResult = bst.search('dragonfruit');
+            expect(notFoundResult).toBeNull();
+            
+            const emptyBST = new BST<number>();
+            expect(emptyBST.search(5)).toBeNull();
+        });
+    });
 });
