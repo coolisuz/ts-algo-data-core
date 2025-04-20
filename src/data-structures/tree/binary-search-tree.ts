@@ -131,6 +131,25 @@ export class BST<T> implements IBinarySearchTree<T> {
     }
 
     /**
+     * Performs a post-order traversal of the tree and returns the values in post-order.
+     *
+     * @time O(n) - where n is the number of nodes in the tree
+     * @space O(n) - due to the call stack and result array
+     *
+     * @param {Node<T> | null} currentNode - Starting node for the traversal
+     * @returns {T[]} Array of values in post-order sequence
+     */
+    postOrderPrint(current: Node<T> | null = this.root): T[] {
+        if (current === null) return [];
+
+        const result = [current.val];
+        const leftChild = this.postOrderPrint(current.leftChild);
+        const rightChild = this.postOrderPrint(current.rightChild);
+
+        return [...leftChild, ...rightChild, ...result];
+    }
+
+    /**
      * Prints a visual representation of the tree to the console (top to bottom)
      *
      * @time O(n) - Visits each node once

@@ -148,4 +148,48 @@ describe('BST', () => {
             expect(bst.inOrderPrint(null)).toEqual([]);
         });
     });
+
+
+    describe('postOrderPrint', () => {
+        test('should return values in post-order traversal sequence', () => {
+            const bst = new BST<number>();
+            // the tree:
+            //      10
+            //     /  \
+            //    5    15
+            //   / \
+            //  3   7
+            bst.insert(10).insert(5).insert(15).insert(3).insert(7);
+            
+            // Post-order traversal should visit: left, right, root
+            const result = bst.postOrderPrint();
+            expect(result).toEqual([3, 7, 5, 15, 10]);
+        });
+        
+        test('should handle skewed trees correctly', () => {
+            const bst = new BST<number>();
+            // left-skewed tree:
+            //      4
+            //     /
+            //    3
+            //   /
+            //  2
+            // /
+            //1
+            bst.insert(4).insert(3).insert(2).insert(1);
+
+            const result = bst.postOrderPrint();
+            
+            expect(result).toEqual([1, 2, 3, 4]);
+            
+            const bst2 = new BST<number>();
+            bst2.insert(1).insert(2).insert(3).insert(4);
+            
+            const result2 = bst2.postOrderPrint();
+            
+            expect(result2).toEqual([4, 3, 2, 1]);
+            
+            expect(bst.postOrderPrint(null)).toEqual([]);
+        });
+    });
 });
