@@ -1,1 +1,1 @@
-export { Queue } from "./queue.ts";
+export { Queue } from "./queue";

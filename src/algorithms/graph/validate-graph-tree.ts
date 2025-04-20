@@ -18,7 +18,7 @@
  * There are no self-loops
  */
 
-import { Graph } from "../../data-structures/graph/index.ts";
+import { Graph } from "../../data-structures/graph/index";
 
 export function isTree(graph: Graph<number>): boolean {
     const vertices = graph.getVertices();

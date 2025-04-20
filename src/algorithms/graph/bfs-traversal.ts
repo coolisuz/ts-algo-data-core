@@ -13,8 +13,8 @@
  * -1000 ≤ graph[i][j] ≤ 1000
  */
 
-import { Graph } from "../../data-structures/graph/graph.ts";
-import { Queue } from "../../data-structures/queue/index.ts";
+import { Graph } from "../../data-structures/graph/graph";
+import { Queue } from "../../data-structures/queue/index";
 
 export function traverseBfs(graph: Graph<number>, source: number) {
     if (!graph.getVertices()) {

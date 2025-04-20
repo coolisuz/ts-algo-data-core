@@ -3,8 +3,8 @@
  *
  * @typeparam T - The type of elements stored in the stacked linked list
  */
-import { IStack } from "../interfaces/index.ts";
-import { Node } from "../linked-list/node.ts";
+import { IStack } from "../interfaces/index";
+import { Node } from "../linked-list/node";
 
 export class StackLinkedList<T> implements IStack<T> {
     /** Head node of the stack */

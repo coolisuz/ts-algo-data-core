@@ -3,7 +3,7 @@
  *
  * @typeparam T - The type of data stored in the node
  */
-import { INode, IDoublyNode } from "../interfaces/index.ts";
+import { INode, IDoublyNode } from "../interfaces/index";
 
 export class Node<T> implements INode<T> {
     /** The data stored in this node */

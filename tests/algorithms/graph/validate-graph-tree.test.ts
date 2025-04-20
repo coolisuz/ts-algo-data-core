@@ -1,5 +1,5 @@
-import { Graph } from '../../../src/data-structures/graph/index.ts';
-import { isTree } from '../../../src/algorithms/graph/validate-graph-tree.ts';
+import { Graph } from '../../../src/data-structures/graph/index';
+import { isTree } from '../../../src/algorithms/graph/validate-graph-tree';
 
 describe('isTree', () => {
     test('should return true for a simple connected tree', () => {

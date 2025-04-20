@@ -1,3 +1,3 @@
-export { Stack } from "./stack-array.ts";
-export { StackLinkedList } from "./stack-linked-list.ts";
-export { MinStack } from "./min-stack.ts";
+export { Stack } from "./stack-array";
+export { StackLinkedList } from "./stack-linked-list";
+export { MinStack } from "./min-stack";

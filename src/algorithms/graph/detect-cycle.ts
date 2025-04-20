@@ -13,7 +13,7 @@
  * Space Complexity: O(V) for the visited and inCurrentPath arrays
  */
 
-import { Graph } from "../../data-structures/graph/index.ts";
+import { Graph } from "../../data-structures/graph/index";
 
 export function detectCycle(graph: Graph<number>): boolean {
     const vertices = graph.getVertices();

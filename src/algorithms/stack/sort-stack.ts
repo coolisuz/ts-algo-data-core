@@ -1,4 +1,4 @@
-import { Stack } from "../../data-structures/stack/index.ts";
+import { Stack } from "../../data-structures/stack/index";
 
 /**
  * Given a stack of integers, stack, sort its elements in ascending order.

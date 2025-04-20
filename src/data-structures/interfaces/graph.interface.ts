@@ -1,4 +1,4 @@
-import { ILinkedList } from "../interfaces/index.ts";
+import { ILinkedList } from "../interfaces/index";
 
 export interface IGraph<T> {
     addEdge(source: number, destination: number): IGraph<T>;

@@ -7,7 +7,7 @@
  * @param arr - The input array of integers
  * @returns An array where each position contains the next greater element for the corresponding element in the input array
  */
-import { Stack } from "../../data-structures/stack/index.ts";
+import { Stack } from "../../data-structures/stack/index";
 
 export function nextGreaterElement(arr: number[]): number[] {
     const n = arr.length;

@@ -6,8 +6,8 @@
  * @typeparam T - The type of elements stored in the binary search tree
  */
 
-import { Node } from "./node.ts";
-import { IBinarySearchTree } from "../interfaces/index.ts";
+import { Node } from "./node";
+import { IBinarySearchTree } from "../interfaces/index";
 
 export class BST<T> implements IBinarySearchTree<T> {
     /** Root node of the tree */

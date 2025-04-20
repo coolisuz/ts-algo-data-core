@@ -4,7 +4,7 @@
  * @typeparam T - The type of value stored in the node
  */
 
-import { IBinaryTreeNode } from "../interfaces/tree.interface.ts";
+import { IBinaryTreeNode } from "../interfaces/tree.interface";
 
 export class Node<T> implements IBinaryTreeNode<T> {
     /** The value stored in the node */

@@ -1,5 +1,5 @@
-import { Queue } from "../../data-structures/queue/queue.ts";
-import { StackLinkedList } from "../../data-structures/stack/index.ts";
+import { Queue } from "../../data-structures/queue/queue";
+import { StackLinkedList } from "../../data-structures/stack/index";
 
 /**
  * Reverses the first k elements of a queue.

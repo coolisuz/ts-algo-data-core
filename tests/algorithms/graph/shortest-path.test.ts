@@ -1,5 +1,5 @@
-import { Graph } from '../../../src/data-structures/graph/index.ts';
-import { findShortestPath } from '../../../src/algorithms/graph/shortest-path.ts';
+import { Graph } from '../../../src/data-structures/graph/index';
+import { findShortestPath } from '../../../src/algorithms/graph/shortest-path';
 
 describe('findShortestPath', () => {
     test('should return correct distance for direct path', () => {

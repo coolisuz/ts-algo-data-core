@@ -1,5 +1,5 @@
-import { Graph } from '../../../src/data-structures/graph/index.ts';
-import { removeEdge } from '../../../src/algorithms/graph/remove-edge.ts';
+import { Graph } from '../../../src/data-structures/graph/index';
+import { removeEdge } from '../../../src/algorithms/graph/remove-edge';
 
 describe('removeEdge', () => {
   test('should do nothing if source and destination are the same', () => {

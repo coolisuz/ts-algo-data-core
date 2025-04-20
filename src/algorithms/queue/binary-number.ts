@@ -1,4 +1,4 @@
-import { Queue } from "../../data-structures/queue/index.ts";
+import { Queue } from "../../data-structures/queue/index";
 
 /**
  * Generates binary representations from 1 to n

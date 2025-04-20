@@ -9,7 +9,7 @@
  * @typeparam T - The type of elements stored in the stacked queue
  */
 
-import { Stack } from "../../data-structures/stack/index.ts";
+import { Stack } from "../../data-structures/stack/index";
 
 export class NewQueue<T> {
     /** Stack like queue */

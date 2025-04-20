@@ -16,7 +16,7 @@
  * - No multiple edges between same vertices
  */
 
-import { Graph } from "../../data-structures/graph/index.ts";
+import { Graph } from "../../data-structures/graph/index";
 
 export function countEdges(graph: Graph<number>): number {
     const list = graph.getList();

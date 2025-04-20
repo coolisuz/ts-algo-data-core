@@ -15,8 +15,8 @@
  * - The graph is unweighted (all edges have equal weight)
  */
 
-import { Graph } from "../../data-structures/graph/index.ts";
-import { Queue } from "../../data-structures/queue/index.ts";
+import { Graph } from "../../data-structures/graph/index";
+import { Queue } from "../../data-structures/queue/index";
 
 export function findShortestPath(
     g: Graph<number>,

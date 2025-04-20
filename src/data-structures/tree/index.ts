@@ -1,2 +1,2 @@
-export { Node } from "./node.ts";
-export { BST } from "./binary-search-tree.ts";
+export { Node } from "./node";
+export { BST } from "./binary-search-tree";

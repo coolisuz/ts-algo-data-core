@@ -1,3 +1,3 @@
-export { LinkedList } from "./linked-list.ts";
-export { DoublyLinkedList } from "./doubley-linked-list.ts";
-export { Node, DoublyNode } from "./node.ts";
+export { LinkedList } from "./linked-list";
+export { DoublyLinkedList } from "./doubley-linked-list";
+export { Node, DoublyNode } from "./node";

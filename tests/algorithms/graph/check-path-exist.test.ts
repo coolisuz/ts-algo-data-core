@@ -1,5 +1,5 @@
-import { Graph } from '../../../src/data-structures/graph/index.ts';
-import { checkPathExists } from '../../../src/algorithms/graph/check-path-exist.ts';
+import { Graph } from '../../../src/data-structures/graph/index';
+import { checkPathExists } from '../../../src/algorithms/graph/check-path-exist';
 
 describe('checkPathExists', () => {
     test('should return true when a direct path exists between source and destination', () => {

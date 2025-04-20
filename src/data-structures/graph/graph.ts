@@ -1,5 +1,5 @@
-import { IGraph } from "../interfaces/index.ts";
-import { LinkedList } from "../linked-list/index.ts";
+import { IGraph } from "../interfaces/index";
+import { LinkedList } from "../linked-list/index";
 
 export class Graph<T> implements IGraph<T> {
     private vertices: number;

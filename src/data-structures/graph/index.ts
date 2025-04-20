@@ -1,1 +1,1 @@
-export { Graph } from "./graph.ts";
+export { Graph } from "./graph";

@@ -20,7 +20,7 @@
  *
  */
 
-import { Graph } from "../../data-structures/graph/index.ts";
+import { Graph } from "../../data-structures/graph/index";
 
 export function checkPathExists(
     graph: Graph<number>,

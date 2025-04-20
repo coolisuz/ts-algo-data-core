@@ -4,8 +4,8 @@
  *
  * @typeparam T - The type of elements stored in the queue
  */
-import { IQueue } from "../interfaces/index.ts";
-import { DoublyLinkedList } from "../linked-list/doubley-linked-list.ts";
+import { IQueue } from "../interfaces/index";
+import { DoublyLinkedList } from "../linked-list/doubley-linked-list";
 
 export class Queue<T> implements IQueue<T> {
     /** Internal doubly linked list to store queue elements */

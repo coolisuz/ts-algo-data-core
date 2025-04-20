@@ -1,4 +1,4 @@
-import { Stack } from "../../data-structures/stack/index.ts";
+import { Stack } from "../../data-structures/stack/index";
 
 /**
  * Evaluates a postfix (Reverse Polish Notation) expression and returns the result.

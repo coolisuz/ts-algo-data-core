@@ -4,7 +4,7 @@
  * @typeparam T - The type of elements stored in the stack
  */
 
-import { IStack } from "../interfaces/index.ts";
+import { IStack } from "../interfaces/index";
 
 export class Stack<T> implements IStack<T> {
     /** Internal array to store stack elements */

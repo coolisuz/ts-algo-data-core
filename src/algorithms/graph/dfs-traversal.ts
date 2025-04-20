@@ -13,8 +13,8 @@
  * -1000 ≤ graph[i][j] ≤ 1000
  */
 
-import { Stack } from "../../data-structures/stack/index.ts";
-import { Graph } from "../../data-structures/graph/index.ts";
+import { Stack } from "../../data-structures/stack/index";
+import { Graph } from "../../data-structures/graph/index";
 
 export function traverseDfs(graph: Graph<number>, source: number) {
     if (!graph.getVertices()) {

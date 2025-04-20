@@ -17,7 +17,7 @@
  * removeEdge(g, 0, 1); // Removes edge from vertex 0 to vertex 1
  */
 
-import { Graph } from "../../data-structures/graph/index.ts";
+import { Graph } from "../../data-structures/graph/index";
 
 export function removeEdge(
     g: Graph<number>,

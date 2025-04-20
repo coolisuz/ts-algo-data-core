@@ -14,7 +14,7 @@
  * @space O(n) - where n is the size of the stack
  */
 
-import { Stack } from "../../data-structures/stack/index.ts";
+import { Stack } from "../../data-structures/stack/index";
 
 export function isBalanced(str: string): boolean {
     if (str.length < 1) return false;

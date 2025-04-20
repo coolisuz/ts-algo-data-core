@@ -14,7 +14,7 @@
  * There are no repeated edges.
  */
 
-import { Graph } from "../../data-structures/graph/index.ts";
+import { Graph } from "../../data-structures/graph/index";
 
 export function findMotherVertex(graph: Graph<number>): number | null {
     const vertices = graph.getVertices();
