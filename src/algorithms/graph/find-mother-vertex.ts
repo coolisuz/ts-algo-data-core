@@ -24,7 +24,7 @@ export function findMotherVertex(graph: Graph<number>): number | null {
 
     const visited = new Array(vertices).fill(false);
 
-    const dfs = (v: number) => {
+    const dfs = (v: number): void => {
         visited[v] = true;
         let neighborNode = list[v].getHead();
 

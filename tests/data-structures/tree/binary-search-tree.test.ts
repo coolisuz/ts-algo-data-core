@@ -1,32 +1,33 @@
-import { BST } from '../../../src/data-structures/tree/binary-search-tree';
+import { BST } from "../../../src/data-structures/tree/binary-search-tree";
+import { Node } from "../../../src/data-structures/tree/index";
 
-describe('BST', () => {
-    describe('insert', () => {
-        test('should insert value into an empty tree', () => {
+describe("BST", () => {
+    describe("insert", () => {
+        test("should insert value into an empty tree", () => {
             const bst = new BST<number>();
             bst.insert(10);
-            
+
             expect(bst.root).not.toBeNull();
             expect(bst.root?.val).toBe(10);
             expect(bst.root?.leftChild).toBeNull();
             expect(bst.root?.rightChild).toBeNull();
         });
 
-        test('should insert multiple values in correct positions', () => {
+        test("should insert multiple values in correct positions", () => {
             const bst = new BST<number>();
             bst.insert(10).insert(5).insert(15);
-            
+
             expect(bst.root?.val).toBe(10);
-            
+
             expect(bst.root?.leftChild?.val).toBe(5);
-            
+
             expect(bst.root?.rightChild?.val).toBe(15);
         });
 
-        test('should handle insertions creating an unbalanced tree', () => {
+        test("should handle insertions creating an unbalanced tree", () => {
             const bst = new BST<number>();
             bst.insert(1).insert(2).insert(3).insert(4);
-            
+
             expect(bst.root?.val).toBe(1);
             expect(bst.root?.rightChild?.val).toBe(2);
             expect(bst.root?.rightChild?.rightChild?.val).toBe(3);
@@ -35,25 +36,25 @@ describe('BST', () => {
         });
     });
 
-    describe('insertV2', () => {
-        test('should correctly insert value into an empty tree', () => {
+    describe("insertV2", () => {
+        test("should correctly insert value into an empty tree", () => {
             const bst = new BST<number>();
             bst.root = bst.insertV2(bst.root, 10);
-            
+
             expect(bst.root).not.toBeNull();
             expect(bst.root?.val).toBe(10);
             expect(bst.root?.leftChild).toBeNull();
             expect(bst.root?.rightChild).toBeNull();
         });
 
-        test('should build correct tree with multiple values', () => {
+        test("should build correct tree with multiple values", () => {
             const bst = new BST<number>();
             bst.root = bst.insertV2(bst.root, 10);
             bst.root = bst.insertV2(bst.root, 5);
             bst.root = bst.insertV2(bst.root, 15);
             bst.root = bst.insertV2(bst.root, 3);
             bst.root = bst.insertV2(bst.root, 7);
-            
+
             expect(bst.root?.val).toBe(10);
             expect(bst.root?.leftChild?.val).toBe(5);
             expect(bst.root?.rightChild?.val).toBe(15);
@@ -61,32 +62,31 @@ describe('BST', () => {
             expect(bst.root?.leftChild?.rightChild?.val).toBe(7);
         });
 
-        test('should preserve existing values when inserting duplicates', () => {
+        test("should preserve existing values when inserting duplicates", () => {
             const bst = new BST<number>();
             bst.root = bst.insertV2(bst.root, 10);
             bst.root = bst.insertV2(bst.root, 5);
             bst.root = bst.insertV2(bst.root, 10);
-            
+
             expect(bst.root?.val).toBe(10);
             expect(bst.root?.leftChild?.val).toBe(5);
             expect(bst.root?.rightChild).toBeNull();
-            
-    
+
             let nodeCount = 0;
-            function countNodes(node: any): void {
+            function countNodes(node: Node<number>): void {
                 if (!node) return;
                 nodeCount++;
-                countNodes(node.leftChild);
-                countNodes(node.rightChild);
+                countNodes(node.leftChild!);
+                countNodes(node.rightChild!);
             }
-            
+
             countNodes(bst.root);
             expect(nodeCount).toBe(2);
         });
     });
 
-    describe('preOrderPrint', () => {
-        test('should return values in pre-order traversal sequence', () => {
+    describe("preOrderPrint", () => {
+        test("should return values in pre-order traversal sequence", () => {
             const bst = new BST<number>();
             // tree:
             //      10
@@ -95,26 +95,26 @@ describe('BST', () => {
             //   / \
             //  3   7
             bst.insert(10).insert(5).insert(15).insert(3).insert(7);
-            
+
             // Pre-order traversal should visit: root, left, right
             const result = bst.preOrderPrint(bst.root);
-            
+
             expect(result).toEqual([10, 5, 3, 7, 15]);
         });
-        
-        test('should return empty array for null node', () => {
+
+        test("should return empty array for null node", () => {
             const bst = new BST<number>();
-            
+
             expect(bst.preOrderPrint(null)).toEqual([]);
-            
+
             bst.insert(42);
-            
+
             expect(bst.preOrderPrint(bst.root?.leftChild)).toEqual([]);
         });
     });
 
-    describe('inOrderPrint', () => {
-        test('should return values in ascending order for a BST', () => {
+    describe("inOrderPrint", () => {
+        test("should return values in ascending order for a BST", () => {
             const bst = new BST<number>();
             // the tree:
             //      10
@@ -123,14 +123,14 @@ describe('BST', () => {
             //   / \
             //  3   7
             bst.insert(10).insert(5).insert(15).insert(3).insert(7);
-            
+
             // In-order traversal should visit: left, root, right
             const result = bst.inOrderPrint();
-            
+
             expect(result).toEqual([3, 5, 7, 10, 15]);
         });
-        
-        test('should handle unbalanced trees correctly', () => {
+
+        test("should handle unbalanced trees correctly", () => {
             const bst = new BST<number>();
             // unbalanced tree:
             //      1
@@ -141,17 +141,16 @@ describe('BST', () => {
             //           \
             //            4
             bst.insert(1).insert(2).insert(3).insert(4);
-            
+
             const result = bst.inOrderPrint();
-            
+
             expect(result).toEqual([1, 2, 3, 4]);
             expect(bst.inOrderPrint(null)).toEqual([]);
         });
     });
 
-
-    describe('postOrderPrint', () => {
-        test('should return values in post-order traversal sequence', () => {
+    describe("postOrderPrint", () => {
+        test("should return values in post-order traversal sequence", () => {
             const bst = new BST<number>();
             // the tree:
             //      10
@@ -160,13 +159,13 @@ describe('BST', () => {
             //   / \
             //  3   7
             bst.insert(10).insert(5).insert(15).insert(3).insert(7);
-            
+
             // Post-order traversal should visit: left, right, root
             const result = bst.postOrderPrint();
             expect(result).toEqual([3, 7, 5, 15, 10]);
         });
-        
-        test('should handle skewed trees correctly', () => {
+
+        test("should handle skewed trees correctly", () => {
             const bst = new BST<number>();
             // left-skewed tree:
             //      4
@@ -179,100 +178,100 @@ describe('BST', () => {
             bst.insert(4).insert(3).insert(2).insert(1);
 
             const result = bst.postOrderPrint();
-            
+
             expect(result).toEqual([1, 2, 3, 4]);
-            
+
             const bst2 = new BST<number>();
             bst2.insert(1).insert(2).insert(3).insert(4);
-            
+
             const result2 = bst2.postOrderPrint();
-            
+
             expect(result2).toEqual([4, 3, 2, 1]);
-            
+
             expect(bst.postOrderPrint(null)).toEqual([]);
         });
     });
 
-    describe('search', () => {
-        test('should find existing value and return the node', () => {
+    describe("search", () => {
+        test("should find existing value and return the node", () => {
             const bst = new BST<number>();
             bst.insert(10).insert(5).insert(15).insert(3).insert(7);
-            
+
             const result = bst.search(7);
-            
+
             expect(result).not.toBeNull();
             expect(result?.val).toBe(7);
             expect(result?.leftChild).toBeNull();
             expect(result?.rightChild).toBeNull();
         });
-        
-        test('should return null for value not in the tree', () => {
+
+        test("should return null for value not in the tree", () => {
             const bst = new BST<number>();
             bst.insert(10).insert(5).insert(15);
-            
+
             const result = bst.search(20);
-            
+
             expect(result).toBeNull();
         });
-        
-        test('should work with different data types', () => {
+
+        test("should work with different data types", () => {
             const bst = new BST<string>();
-            bst.insert('banana').insert('apple').insert('cherry');
-            
-            const foundResult = bst.search('apple');
-            expect(foundResult?.val).toBe('apple');
-            
-            const notFoundResult = bst.search('dragonfruit');
+            bst.insert("banana").insert("apple").insert("cherry");
+
+            const foundResult = bst.search("apple");
+            expect(foundResult?.val).toBe("apple");
+
+            const notFoundResult = bst.search("dragonfruit");
             expect(notFoundResult).toBeNull();
-            
+
             const emptyBST = new BST<number>();
             expect(emptyBST.search(5)).toBeNull();
         });
     });
 
-    describe('searchV2', () => {
-        test('should find existing value and return the node', () => {
+    describe("searchV2", () => {
+        test("should find existing value and return the node", () => {
             const bst = new BST<number>();
             bst.insert(10).insert(5).insert(15).insert(3).insert(7);
-            
+
             const result = bst.searchV2(bst.root, 7);
-            
+
             expect(result).not.toBeNull();
             expect(result?.val).toBe(7);
             expect(result?.leftChild).toBeNull();
             expect(result?.rightChild).toBeNull();
         });
-        
-        test('should return null for value not in the tree', () => {
+
+        test("should return null for value not in the tree", () => {
             const bst = new BST<number>();
             bst.insert(10).insert(5).insert(15);
-            
+
             const result = bst.searchV2(bst.root, 20);
-            
+
             expect(result).toBeNull();
         });
-        
-        test('should find values at different tree levels', () => {
+
+        test("should find values at different tree levels", () => {
             const bst = new BST<number>();
             bst.insert(50)
-               .insert(30)
-               .insert(70)
-               .insert(20)
-               .insert(40)
-               .insert(60)
-               .insert(80);
-            
+                .insert(30)
+                .insert(70)
+                .insert(20)
+                .insert(40)
+                .insert(60)
+                .insert(80);
+
             // Check root
             expect(bst.searchV2(bst.root, 50)?.val).toBe(50);
-            
+
             // Check second level
             expect(bst.searchV2(bst.root, 30)?.val).toBe(30);
             expect(bst.searchV2(bst.root, 70)?.val).toBe(70);
-            
+
             // Check third level
             expect(bst.searchV2(bst.root, 20)?.val).toBe(20);
             expect(bst.searchV2(bst.root, 80)?.val).toBe(80);
-            
+
             // Test with null starting node
             expect(bst.searchV2(null, 50)).toBeNull();
         });

@@ -22,7 +22,7 @@ export class Queue<T> implements IQueue<T> {
      * @space O(1) - No extra space used
      * @returns {boolean} True if the queue is empty false otherwise
      */
-    isEmpty() {
+    isEmpty(): boolean {
         return this.queue.isEmpty();
     }
 
@@ -44,7 +44,7 @@ export class Queue<T> implements IQueue<T> {
      * @space O(1) - No extra space used
      * @returns {number} The number of nodes
      */
-    size() {
+    size(): number {
         return this.queue.size();
     }
 

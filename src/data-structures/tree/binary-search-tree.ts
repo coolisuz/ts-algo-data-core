@@ -156,6 +156,7 @@ export class BST<T> implements IBinarySearchTree<T> {
      * @space O(h) - Space complexity depends on the height of the tree
      * @returns {BST<T>} The tree instance for method chaining
      */
+    /* eslint-disable */
     print(): BST<T> {
         if (this.root === null) {
             console.log("Empty tree");
@@ -199,6 +200,7 @@ export class BST<T> implements IBinarySearchTree<T> {
 
         return this;
     }
+     
 
     /**
      * Searches for a node with the specified value in the binary search tree.

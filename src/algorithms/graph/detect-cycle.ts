@@ -14,6 +14,7 @@
  */
 
 import { Graph } from "../../data-structures/graph/index";
+import { LinkedList } from "../../data-structures/linked-list";
 
 export function detectCycle(graph: Graph<number>): boolean {
     const vertices = graph.getVertices();
@@ -44,7 +45,7 @@ export function detectCycle(graph: Graph<number>): boolean {
  * @param {number} vertex - The current vertex being processed
  * @param {boolean[]} visited - Array tracking all visited vertices
  * @param {boolean[]} inCurrentPath - Array tracking vertices in the current DFS path
- * @param {any[]} adjacencyList - The adjacency list representation of the graph
+ * @param {LinkedList<number>[]} adjacencyList - The adjacency list representation of the graph
  * @returns {boolean} - True if a cycle is detected false otherwise
  *
  * @private
@@ -53,7 +54,7 @@ function hasCycleDFS(
     vertex: number,
     visited: boolean[],
     inCurrentPath: boolean[],
-    adjacencyList: any[],
+    adjacencyList: LinkedList<number>[],
 ): boolean {
     visited[vertex] = true;
     inCurrentPath[vertex] = true;

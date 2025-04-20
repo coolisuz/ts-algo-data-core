@@ -16,7 +16,7 @@
 import { Stack } from "../../data-structures/stack/index";
 import { Graph } from "../../data-structures/graph/index";
 
-export function traverseDfs(graph: Graph<number>, source: number) {
+export function traverseDfs(graph: Graph<number>, source: number): number[] {
     if (!graph.getVertices()) {
         return [];
     }

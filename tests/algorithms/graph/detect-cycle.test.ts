@@ -1,5 +1,5 @@
 import { detectCycle } from "../../../src/algorithms/graph/detect-cycle";
-import { Graph } from '../../../src/data-structures/graph/index'
+import { Graph } from "../../../src/data-structures/graph/index";
 
 describe("detectCycle", () => {
     test("should detect a cycle in a simple directed graph", () => {
@@ -7,7 +7,7 @@ describe("detectCycle", () => {
         graph.addEdge(0, 1);
         graph.addEdge(1, 2);
         graph.addEdge(2, 0);
-        
+
         expect(detectCycle(graph)).toBe(true);
     });
 
@@ -16,15 +16,15 @@ describe("detectCycle", () => {
         graph.addEdge(0, 1);
         graph.addEdge(1, 2);
         graph.addEdge(2, 3);
-        
+
         expect(detectCycle(graph)).toBe(false);
     });
 
     test("should detect a self-loop", () => {
         const graph = new Graph<number>(2);
         graph.addEdge(0, 1);
-        graph.addEdge(1, 1)
-        
+        graph.addEdge(1, 1);
+
         expect(detectCycle(graph)).toBe(true);
     });
 
@@ -34,7 +34,7 @@ describe("detectCycle", () => {
         graph.addEdge(2, 3);
         graph.addEdge(3, 4);
         graph.addEdge(4, 2);
-        
+
         expect(detectCycle(graph)).toBe(true);
     });
 
@@ -50,8 +50,8 @@ describe("detectCycle", () => {
         graph.addEdge(2, 3);
         graph.addEdge(3, 4);
         graph.addEdge(4, 5);
-        graph.addEdge(5, 2)
-        
+        graph.addEdge(5, 2);
+
         expect(detectCycle(graph)).toBe(true);
     });
 });

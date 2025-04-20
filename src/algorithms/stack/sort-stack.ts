@@ -1,5 +1,3 @@
-import { Stack } from "../../data-structures/stack/index";
-
 /**
  * Given a stack of integers, stack, sort its elements in ascending order.
  * In the resulting stack, the smallest element should be at the top.
@@ -14,7 +12,9 @@ import { Stack } from "../../data-structures/stack/index";
  * -10^3 ≤ stack[i] ≤ 10^3
  */
 
-export function sortStack(stack: Stack<number>) {
+import { Stack } from "../../data-structures/stack/index";
+
+export function sortStack(stack: Stack<number>): Stack<number> {
     if (stack.size() < 2) return stack;
 
     const tempStack = new Stack();
@@ -35,9 +35,9 @@ export function sortStack(stack: Stack<number>) {
         tempStack.push(current);
     }
 
-    const ascendingStack = new Stack();
+    const ascendingStack = new Stack<number>();
     while (!tempStack.isEmpty()) {
-        ascendingStack.push(tempStack.pop());
+        ascendingStack.push(tempStack.pop() as number);
     }
 
     return ascendingStack;

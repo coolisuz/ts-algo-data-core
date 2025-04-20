@@ -16,7 +16,7 @@
 import { Graph } from "../../data-structures/graph/graph";
 import { Queue } from "../../data-structures/queue/index";
 
-export function traverseBfs(graph: Graph<number>, source: number) {
+export function traverseBfs(graph: Graph<number>, source: number): number[] {
     if (!graph.getVertices()) {
         return [];
     }

@@ -3,6 +3,7 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
+import globals from 'globals';
 
 export default [
   {
@@ -15,8 +16,7 @@ export default [
         sourceType: 'module',
       },
       globals: {
-        node: true,
-        jest: true,
+        ...globals.node,
       },
     },
     plugins: {
@@ -31,6 +31,15 @@ export default [
       '@typescript-eslint/no-unused-vars': ['error'],
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'error',
+    },
+  },
+  {
+  
+    files: ['tests/**/*.ts', '**/*.test.ts', '**/*.spec.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
     },
   },
 ];
