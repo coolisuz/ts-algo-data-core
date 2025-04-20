@@ -224,4 +224,28 @@ export class BST<T> implements IBinarySearchTree<T> {
 
         return null;
     }
+
+    /**
+     * Recursively searches for a node with the specified value in the binary search tree
+     *
+     * @time O(log n) average case (balanced tree) and O(n) worst case (unbalanced tree)
+     * @space O(log n) average case and O(n) worst case due to the recursion call stack
+     *
+     * @param {Node<T> | null} currentNode - The current node to examine
+     * @param {T} value - The value to search for
+     * @returns {Node<T> | null} The node containing the value or null if not found
+     */
+    searchV2(currentNode: Node<T> | null, value: T): Node<T> | null {
+        if (currentNode === null) {
+            return null;
+        }
+
+        if (value === currentNode.val) {
+            return currentNode;
+        } else if (value < currentNode.val) {
+            return this.searchV2(currentNode.leftChild, value);
+        } else {
+            return this.searchV2(currentNode.rightChild, value);
+        }
+    }
 }

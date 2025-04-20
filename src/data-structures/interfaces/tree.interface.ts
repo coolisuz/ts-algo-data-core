@@ -11,9 +11,13 @@ export interface IBinarySearchTree<T> {
         currentNode: IBinaryTreeNode<T> | null,
         newValue: T,
     ): IBinaryTreeNode<T>;
-    preOrderPrint(currentNode: IBinaryTreeNode<T> | null): T[];
-    inOrderPrint(currentNode: IBinaryTreeNode<T> | null): T[];
-    postOrderPrint(currentNode: IBinaryTreeNode<T> | null): T[];
+    preOrderPrint(currentNode?: IBinaryTreeNode<T> | null): T[];
+    inOrderPrint(currentNode?: IBinaryTreeNode<T> | null): T[];
+    postOrderPrint(currentNode?: IBinaryTreeNode<T> | null): T[];
     print(): IBinarySearchTree<T>;
     search(value: T): IBinaryTreeNode<T> | null;
+    searchV2(
+        currentNode: IBinaryTreeNode<T> | null,
+        value: T,
+    ): IBinaryTreeNode<T> | null;
 }

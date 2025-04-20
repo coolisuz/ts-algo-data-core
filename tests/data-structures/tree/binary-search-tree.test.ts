@@ -229,4 +229,52 @@ describe('BST', () => {
             expect(emptyBST.search(5)).toBeNull();
         });
     });
+
+    describe('searchV2', () => {
+        test('should find existing value and return the node', () => {
+            const bst = new BST<number>();
+            bst.insert(10).insert(5).insert(15).insert(3).insert(7);
+            
+            const result = bst.searchV2(bst.root, 7);
+            
+            expect(result).not.toBeNull();
+            expect(result?.val).toBe(7);
+            expect(result?.leftChild).toBeNull();
+            expect(result?.rightChild).toBeNull();
+        });
+        
+        test('should return null for value not in the tree', () => {
+            const bst = new BST<number>();
+            bst.insert(10).insert(5).insert(15);
+            
+            const result = bst.searchV2(bst.root, 20);
+            
+            expect(result).toBeNull();
+        });
+        
+        test('should find values at different tree levels', () => {
+            const bst = new BST<number>();
+            bst.insert(50)
+               .insert(30)
+               .insert(70)
+               .insert(20)
+               .insert(40)
+               .insert(60)
+               .insert(80);
+            
+            // Check root
+            expect(bst.searchV2(bst.root, 50)?.val).toBe(50);
+            
+            // Check second level
+            expect(bst.searchV2(bst.root, 30)?.val).toBe(30);
+            expect(bst.searchV2(bst.root, 70)?.val).toBe(70);
+            
+            // Check third level
+            expect(bst.searchV2(bst.root, 20)?.val).toBe(20);
+            expect(bst.searchV2(bst.root, 80)?.val).toBe(80);
+            
+            // Test with null starting node
+            expect(bst.searchV2(null, 50)).toBeNull();
+        });
+    });
 });
