@@ -1,4 +1,6 @@
 # TypeScript Algorithms & Data Structures
+![CI](https://github.com/coolisuz/ts-algo-data-core/actions/workflows/ci.yml/badge.svg)
+
 Personal collection of data structures and algorithms implemented in TypeScript with full type safety.
 
 ## 🚀 Project Overview
@@ -12,13 +14,13 @@ This repository serves as both a practical reference and learning resource for c
 ## 📋 Contents
 ### Data Structures
 
- - [ ] Linked List
- - [ ] Stack
- - [ ] Queue
+ - [x] Linked List
+ - [x] Stack
+ - [x] Queue
  - [ ] Hash Table
- - [ ] Binary Search Tree
+ - [x] Binary Search Tree
  - [ ] Heap / Priority Queue
- - [ ] Graph
+ - [x] Graph
  - [ ] Trie
  - [ ] AVL Tree
  - [ ] Red-Black Tree
@@ -37,10 +39,10 @@ This repository serves as both a practical reference and learning resource for c
 
 #### Searching
 
- - [ ] Linear Search
- - [ ] Binary Search
- - [ ] Depth-First Search
- - [ ] Breadth-First Search
+ - [x] Linear Search
+ - [x] Binary Search
+ - [x] Depth-First Search
+ - [x] Breadth-First Search
 
 #### Graph Algorithms
 
