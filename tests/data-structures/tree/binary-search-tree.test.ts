@@ -112,4 +112,40 @@ describe('BST', () => {
             expect(bst.preOrderPrint(bst.root?.leftChild)).toEqual([]);
         });
     });
+
+    describe('inOrderPrint', () => {
+        test('should return values in ascending order for a BST', () => {
+            const bst = new BST<number>();
+            // the tree:
+            //      10
+            //     /  \
+            //    5    15
+            //   / \
+            //  3   7
+            bst.insert(10).insert(5).insert(15).insert(3).insert(7);
+            
+            // In-order traversal should visit: left, root, right
+            const result = bst.inOrderPrint();
+            
+            expect(result).toEqual([3, 5, 7, 10, 15]);
+        });
+        
+        test('should handle unbalanced trees correctly', () => {
+            const bst = new BST<number>();
+            // unbalanced tree:
+            //      1
+            //       \
+            //        2
+            //         \
+            //          3
+            //           \
+            //            4
+            bst.insert(1).insert(2).insert(3).insert(4);
+            
+            const result = bst.inOrderPrint();
+            
+            expect(result).toEqual([1, 2, 3, 4]);
+            expect(bst.inOrderPrint(null)).toEqual([]);
+        });
+    });
 });
