@@ -276,4 +276,83 @@ describe("BST", () => {
             expect(bst.searchV2(null, 50)).toBeNull();
         });
     });
+
+    describe("delete", () => {
+        let bst: BST<number>;
+
+        beforeEach(() => {
+            bst = new BST<number>();
+        });
+
+        test("should return false when deleting from an empty tree", () => {
+            expect(bst.delete(10)).toBe(false);
+        });
+
+        test("should delete a leaf node correctly", () => {
+            bst.insert(10);
+            bst.insert(5);
+            bst.insert(15);
+
+            expect(bst.delete(5)).toBe(true);
+            expect(bst.contains(5)).toBe(false);
+            expect(bst.contains(10)).toBe(true);
+            expect(bst.contains(15)).toBe(true);
+        });
+
+        test("should delete a node with one child correctly", () => {
+            bst.insert(10);
+            bst.insert(5);
+            bst.insert(15);
+            bst.insert(3);
+
+            // Delete 5, which has one child (3)
+            expect(bst.delete(5)).toBe(true);
+            expect(bst.contains(5)).toBe(false);
+            expect(bst.contains(3)).toBe(true);
+
+            // 3 should now be directly connected to 10
+            const root = bst.root;
+            expect(root?.val).toBe(10);
+            expect(root?.leftChild?.val).toBe(3);
+        });
+
+        test("should delete a node with two children correctly", () => {
+            bst.insert(10);
+            bst.insert(5);
+            bst.insert(15);
+            bst.insert(3);
+            bst.insert(7);
+
+            // Delete 5, which has two children (3 and 7)
+            expect(bst.delete(5)).toBe(true);
+            expect(bst.contains(5)).toBe(false);
+            expect(bst.contains(3)).toBe(true);
+            expect(bst.contains(7)).toBe(true);
+
+            // Either 3 or 7 should replace 5 (depends on implementation)
+            const root = bst.root;
+            expect(root?.val).toBe(10);
+            expect(root?.leftChild?.val).toBe(7); // In this implementation the successor (7) replaces 5
+            expect(root?.leftChild?.leftChild?.val).toBe(3);
+        });
+
+        test("should delete the root node correctly", () => {
+            bst.insert(10);
+            bst.insert(5);
+            bst.insert(15);
+            bst.insert(12);
+            bst.insert(20);
+
+            // Delete root (10)
+            expect(bst.delete(10)).toBe(true);
+            expect(bst.contains(10)).toBe(false);
+
+            // Root should be replaced by its in-order successor (12)
+            const newRoot = bst.root;
+            expect(newRoot?.val).toBe(12);
+            expect(newRoot?.leftChild?.val).toBe(5);
+            expect(newRoot?.rightChild?.val).toBe(15);
+            expect(newRoot?.rightChild?.rightChild?.val).toBe(20);
+        });
+    });
 });

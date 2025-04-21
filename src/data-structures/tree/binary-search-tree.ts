@@ -200,7 +200,6 @@ export class BST<T> implements IBinarySearchTree<T> {
 
         return this;
     }
-     
 
     /**
      * Searches for a node with the specified value in the binary search tree.
@@ -249,5 +248,148 @@ export class BST<T> implements IBinarySearchTree<T> {
         } else {
             return this.searchV2(currentNode.rightChild, value);
         }
+    }
+
+    /**
+     * Deletes a node with the given value from the Binary Search Tree
+     *
+     * @param {T} value - The value to be deleted from the tree
+     * @returns {boolean} True if the value was found and deleted false otherwise
+     *
+     * @example
+     * const bst = new BST<number>();
+     * bst.insert(10);
+     * bst.insert(5);
+     * bst.insert(15);
+     * bst.delete(5); // returns true
+     * bst.delete(20); // returns false (not in tree)
+     *
+     * @time O(h) - where h is the height of the tree (O(log n) for balanced trees, O(n) for unbalanced)
+     * @space O(1) - constant extra space used
+     */
+    delete(value: T): boolean {
+        if (!this.root) {
+            return false; // Tree is empty
+        }
+
+        // Special case for root
+        if (this.root.val === value) {
+            if (this.root.leftChild === null && this.root.rightChild === null) {
+                // Root is a leaf node
+                this.root = null;
+                return true;
+            } else if (this.root.leftChild === null) {
+                // Root has only right child
+                this.root = this.root.rightChild;
+                return true;
+            } else if (this.root.rightChild === null) {
+                // Root has only left child
+                this.root = this.root.leftChild;
+                return true;
+            } else {
+                // Root has two children
+                // Find the inorder successor (smallest value in right subtree)
+                let minRight = this.root.rightChild;
+                while (minRight.leftChild !== null) {
+                    minRight = minRight.leftChild;
+                }
+
+                // Store the value of the successor
+                const successorValue = minRight.val;
+
+                // Remove the successor
+                this.deleteNode(this.root, minRight.val);
+
+                // Replace root's value with successor's value
+                this.root.val = successorValue;
+                return true;
+            }
+        }
+
+        // For non-root nodes
+        return this.deleteNode(this.root, value);
+    }
+
+    private deleteNode(currentNode: Node<T>, value: T): boolean {
+        if (currentNode === null) {
+            return false;
+        }
+
+        let parentNode: Node<T> = currentNode;
+        let targetNode: Node<T> | null = currentNode;
+
+        // Find the node to delete and its parent
+        while (targetNode !== null && targetNode.val !== value) {
+            parentNode = targetNode;
+
+            if (value < targetNode.val) {
+                targetNode = targetNode.leftChild;
+            } else {
+                targetNode = targetNode.rightChild;
+            }
+        }
+
+        // Node not found
+        if (targetNode === null) {
+            return false;
+        }
+
+        // Case 1: Leaf node (no children)
+        if (targetNode.leftChild === null && targetNode.rightChild === null) {
+            if (targetNode.val < parentNode.val) {
+                parentNode.leftChild = null;
+            } else {
+                parentNode.rightChild = null;
+            }
+            return true;
+        }
+
+        // Case 2: Node with only left child
+        else if (targetNode.rightChild === null) {
+            if (targetNode.val < parentNode.val) {
+                parentNode.leftChild = targetNode.leftChild;
+            } else {
+                parentNode.rightChild = targetNode.leftChild;
+            }
+            return true;
+        }
+
+        // Case 3: Node with only right child
+        else if (targetNode.leftChild === null) {
+            if (targetNode.val < parentNode.val) {
+                parentNode.leftChild = targetNode.rightChild;
+            } else {
+                parentNode.rightChild = targetNode.rightChild;
+            }
+            return true;
+        }
+
+        // Case 4: Node with two children
+        else {
+            // Find inorder successor (minimum value in right subtree)
+            let successorParent = targetNode;
+            let successor = targetNode.rightChild;
+
+            while (successor.leftChild !== null) {
+                successorParent = successor;
+                successor = successor.leftChild;
+            }
+
+            // Replace target node's value with successor's value
+            targetNode.val = successor.val;
+
+            // Remove the successor
+            if (successor === successorParent.leftChild) {
+                successorParent.leftChild = successor.rightChild;
+            } else {
+                successorParent.rightChild = successor.rightChild;
+            }
+
+            return true;
+        }
+    }
+
+    contains(value: T): boolean {
+        return this.search(value) !== null;
     }
 }
