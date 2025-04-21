@@ -9,6 +9,7 @@
     "build": "tsc",
     "start": "node --experimental-specifier-resolution=node dist/index.js",
     "dev": "tsx src/index.ts",
+    "verify": "yarn test && yarn lint && yarn build",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "./node_modules/.bin/eslint .",

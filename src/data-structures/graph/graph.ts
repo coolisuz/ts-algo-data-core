@@ -39,7 +39,7 @@ export class Graph<T> implements IGraph<T> {
      */
     /* eslint-disable */
     printGraph(): void {
-        console.log(">>Adjacency List of Directed Graph<<");
+        console.log('>>Adjacency List of Directed Graph<<');
         for (let i = 0; i < this.list.length; i++) {
             process.stdout.write(`|${i}| => `);
             let temp = this.list[i].getHead();
