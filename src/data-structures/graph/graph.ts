@@ -37,7 +37,7 @@ export class Graph<T> implements IGraph<T> {
     /**
      * Prints the graph representation to the console
      */
-    /* eslint-disable */
+
     printGraph(): void {
         console.log(">>Adjacency List of Directed Graph<<");
         for (let i = 0; i < this.list.length; i++) {
