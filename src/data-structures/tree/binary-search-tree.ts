@@ -392,4 +392,97 @@ export class BST<T> implements IBinarySearchTree<T> {
     contains(value: T): boolean {
         return this.search(value) !== null;
     }
+
+    /**
+     * Deletes a node with the given value from the Binary Search Tree using an alternative implementation.
+     *
+     * @time O(h) - where h is the height of the tree (O(log n) for balanced trees, O(n) for unbalanced)
+     * @space O(h) - due to recursion stack (O(log n) for balanced trees, O(n) for unbalanced)
+     *
+     * @param {Node<T> | null} currentNode - The starting node for the deletion process (typically the root)
+     * @param {T} value - The value to be deleted from the tree
+     * @returns {boolean} True if the value was found and deleted, false otherwise
+     */
+    deleteV2(currentNode: Node<T> | null, value: T): boolean {
+        if (currentNode === null) {
+            return false;
+        }
+
+        let parentNode: Node<T> | null = null;
+
+        while (currentNode !== null && currentNode.val !== value) {
+            parentNode = currentNode;
+
+            if (value < currentNode.val) {
+                currentNode = currentNode.leftChild;
+            } else {
+                currentNode = currentNode.rightChild;
+            }
+        }
+
+        if (currentNode === null) {
+            return false;
+        } else if (
+            currentNode.leftChild === null &&
+            currentNode.rightChild === null
+        ) {
+            if (currentNode.val === this.root?.val) {
+                this.root = null;
+            } else if (parentNode?.val) {
+                if (currentNode.val < parentNode.val) {
+                    parentNode.leftChild = null;
+                    return true;
+                } else {
+                    parentNode.rightChild = null;
+                    return true;
+                }
+            }
+        } else if (
+            currentNode.leftChild !== null &&
+            currentNode.rightChild === null
+        ) {
+            if (currentNode.val === this.root?.val) {
+                this.root = currentNode.leftChild;
+                return true;
+            } else if (parentNode && parentNode.val) {
+                if (currentNode.leftChild.val < parentNode.val) {
+                    parentNode.leftChild = currentNode.leftChild;
+                    return true;
+                } else {
+                    parentNode.rightChild = currentNode.leftChild;
+                }
+            }
+        } else if (
+            currentNode.leftChild === null &&
+            currentNode.rightChild !== null
+        ) {
+            if (currentNode.val === this.root?.val) {
+                this.root = currentNode.rightChild;
+            } else if (parentNode && parentNode.val) {
+                if (currentNode.rightChild.val < parentNode.val) {
+                    parentNode.leftChild = currentNode.rightChild;
+                    return true;
+                } else {
+                    parentNode.rightChild = currentNode.rightChild;
+                    return true;
+                }
+            }
+        } else {
+            let minRight = currentNode.rightChild;
+
+            while (minRight?.leftChild !== null) {
+                minRight = minRight?.leftChild as Node<T>;
+            }
+
+            let temp = minRight.val;
+
+            this.deleteV2(this.root, minRight.val);
+
+            currentNode.val = temp;
+
+            return true;
+        }
+
+        return false;
+    }
 }
