@@ -22,4 +22,5 @@ export interface IBinarySearchTree<T> {
     ): IBinaryTreeNode<T> | null;
     contains(value: T): boolean;
     delete(value: T): boolean;
+    deleteV2(currentNode: IBinaryTreeNode<T> | null, value: T): boolean;
 }
