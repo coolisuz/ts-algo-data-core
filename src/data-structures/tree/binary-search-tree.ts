@@ -428,6 +428,7 @@ export class BST<T> implements IBinarySearchTree<T> {
         ) {
             if (currentNode.val === this.root?.val) {
                 this.root = null;
+                return true;
             } else if (parentNode?.val) {
                 if (currentNode.val < parentNode.val) {
                     parentNode.leftChild = null;
@@ -458,6 +459,7 @@ export class BST<T> implements IBinarySearchTree<T> {
         ) {
             if (currentNode.val === this.root?.val) {
                 this.root = currentNode.rightChild;
+                return true;
             } else if (parentNode && parentNode.val) {
                 if (currentNode.rightChild.val < parentNode.val) {
                     parentNode.leftChild = currentNode.rightChild;
