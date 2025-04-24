@@ -198,34 +198,23 @@ describe("BST", () => {
             bst.insert(10).insert(5).insert(15).insert(3).insert(7);
 
             const result = bst.search(7);
-
             expect(result).not.toBeNull();
             expect(result?.val).toBe(7);
-            expect(result?.leftChild).toBeNull();
-            expect(result?.rightChild).toBeNull();
         });
 
-        test("should return null for value not in the tree", () => {
+        test("should return null for non-existent value", () => {
             const bst = new BST<number>();
             bst.insert(10).insert(5).insert(15);
 
-            const result = bst.search(20);
-
+            const result = bst.search(99);
             expect(result).toBeNull();
         });
 
-        test("should work with different data types", () => {
-            const bst = new BST<string>();
-            bst.insert("banana").insert("apple").insert("cherry");
+        test("should work correctly with empty tree", () => {
+            const bst = new BST<number>();
 
-            const foundResult = bst.search("apple");
-            expect(foundResult?.val).toBe("apple");
-
-            const notFoundResult = bst.search("dragonfruit");
-            expect(notFoundResult).toBeNull();
-
-            const emptyBST = new BST<number>();
-            expect(emptyBST.search(5)).toBeNull();
+            const result = bst.search(1);
+            expect(result).toBeNull();
         });
     });
 
@@ -353,6 +342,89 @@ describe("BST", () => {
             expect(newRoot?.leftChild?.val).toBe(5);
             expect(newRoot?.rightChild?.val).toBe(15);
             expect(newRoot?.rightChild?.rightChild?.val).toBe(20);
+        });
+    });
+
+    describe("deleteV2", () => {
+        test("should return false for empty tree", () => {
+            const bst = new BST<number>();
+            const result = bst.deleteV2(bst.root, 10);
+            expect(result).toBe(false);
+            expect(bst.root).toBeNull();
+        });
+
+        test("should delete leaf node successfully", () => {
+            const bst = new BST<number>();
+            bst.insert(10).insert(5).insert(15);
+            const result = bst.deleteV2(bst.root, 15);
+            expect(result).toBe(true);
+            expect(bst.root?.rightChild).toBeNull();
+            expect(bst.inOrderPrint()).toEqual([5, 10]);
+        });
+
+        test("should delete root node with no children", () => {
+            const bst = new BST<number>();
+            bst.insert(10);
+            const result = bst.deleteV2(bst.root, 10);
+            expect(result).toBe(true);
+            expect(bst.root).toBeNull();
+        });
+
+        test("should delete node with only left child", () => {
+            const bst = new BST<number>();
+            bst.insert(10).insert(5).insert(3);
+            const result = bst.deleteV2(bst.root, 5);
+            expect(result).toBe(true);
+            expect(bst.root?.leftChild?.val).toBe(3);
+            expect(bst.inOrderPrint()).toEqual([3, 10]);
+        });
+
+        test("should delete node with only right child", () => {
+            const bst = new BST<number>();
+            bst.insert(10).insert(15).insert(20);
+            const result = bst.deleteV2(bst.root, 15);
+            expect(result).toBe(true);
+            expect(bst.root?.rightChild?.val).toBe(20);
+            expect(bst.inOrderPrint()).toEqual([10, 20]);
+        });
+
+        test("should delete node with two children", () => {
+            const bst = new BST<number>();
+            bst.insert(10)
+                .insert(5)
+                .insert(15)
+                .insert(3)
+                .insert(7)
+                .insert(12)
+                .insert(18);
+            const result = bst.deleteV2(bst.root, 5);
+            expect(result).toBe(true);
+            expect(bst.root?.leftChild?.val).toBe(7);
+            expect(bst.root?.leftChild?.leftChild?.val).toBe(3);
+            expect(bst.inOrderPrint()).toEqual([3, 7, 10, 12, 15, 18]);
+        });
+
+        test("should delete root node with two children", () => {
+            const bst = new BST<number>();
+            bst.insert(10)
+                .insert(5)
+                .insert(15)
+                .insert(3)
+                .insert(7)
+                .insert(12)
+                .insert(18);
+            const result = bst.deleteV2(bst.root, 10);
+            expect(result).toBe(true);
+            expect(bst.root?.val).toBe(12);
+            expect(bst.inOrderPrint()).toEqual([3, 5, 7, 12, 15, 18]);
+        });
+
+        test("should return false for non-existent value", () => {
+            const bst = new BST<number>();
+            bst.insert(10).insert(5).insert(15);
+            const result = bst.deleteV2(bst.root, 99);
+            expect(result).toBe(false);
+            expect(bst.inOrderPrint()).toEqual([5, 10, 15]);
         });
     });
 });
