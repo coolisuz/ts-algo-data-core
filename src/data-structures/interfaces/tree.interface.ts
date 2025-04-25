@@ -25,11 +25,6 @@ export interface IBinarySearchTree<T> {
     deleteV2(currentNode: IBinaryTreeNode<T> | null, value: T): boolean;
 }
 
-/**
- * Interface for an AVL Tree a self-balancing binary search tree.
- * Extends the basic Binary Search Tree interface with AVL-specific operations.
- */
 export interface IAVLTree<T> {
-    // AVL-specific methods can be added here if needed
     getHeight(node: IBinaryTreeNode<T> | null): number;
 }

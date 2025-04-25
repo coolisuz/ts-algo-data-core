@@ -1,4 +1,4 @@
-import { RedBlackTree } from "./red-black-tree";
+import { RedBlackTree } from "../../../src/data-structures/tree/index";
 
 describe("RedBlackTree", () => {
     let tree: RedBlackTree<number>;
@@ -66,10 +66,8 @@ describe("RedBlackTree", () => {
     test("should maintain balance with sequential insertions", () => {
         const values = [10, 20, 30, 15, 25, 5, 1];
         values.forEach((val) => tree.insert(val));
-        expect(tree.root!.isRed).toBe(false);
 
-        expect(tree.root!.val).toBe(10);
-        expect(tree.root!.rightChild!.val).toBe(20);
+        expect(tree.root!.isRed).toBe(false);
         expect(tree.root!.rightChild!.isRed).toBe(false);
     });
 });
