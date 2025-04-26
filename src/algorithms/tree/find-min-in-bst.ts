@@ -1,8 +1,8 @@
 /**
  * Finds the minimum value in a Binary Search Tree.
  *
- * @timeComplexity O(h) where h is the height of the tree; average case O(log n), worst case O(n) for skewed trees.
- * @spaceComplexity O(1) as no extra space is used.
+ * @time O(h) where h is the height of the tree; average case O(log n), worst case O(n) for skewed trees.
+ * @space O(1) as no extra space is used.
  *
  * @param {Node<number> | null} root - The root node of the Binary Search Tree
  * @returns {number | null} - The minimum value in the BST or null if the tree is empty
