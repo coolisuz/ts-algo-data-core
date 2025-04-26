@@ -1,4 +1,4 @@
-import { IBinaryTreeNode } from "../interfaces";
+import { IBinaryTreeNode, IRedBlackTree } from "../interfaces";
 
 /**
  * Represents a node in a Red-Black Tree, implementing the IBinaryTreeNode interface.
@@ -25,7 +25,7 @@ export class RedBlackNode<T> implements IBinaryTreeNode<T> {
  * Space complexity is O(n) where n is the number of nodes.
  * @template T - The type of values stored in the tree.
  */
-export class RedBlackTree<T> {
+export class RedBlackTree<T> implements IRedBlackTree<T> {
     /** The root node of the tree, or null if the tree is empty. */
     root: RedBlackNode<T> | null;
 

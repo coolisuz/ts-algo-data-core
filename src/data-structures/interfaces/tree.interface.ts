@@ -28,3 +28,7 @@ export interface IBinarySearchTree<T> {
 export interface IAVLTree<T> {
     getHeight(node: IBinaryTreeNode<T> | null): number;
 }
+
+export interface IRedBlackTree<T> {
+    insert(val: T): IRedBlackTree<T>;
+}
