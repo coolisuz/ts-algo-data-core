@@ -1,5 +1,5 @@
 /**
- * Finds the minimum value in a Binary Search Tree.
+ * Finds the minimum value in a Binary Search Tree
  *
  * @time O(h) where h is the height of the tree; average case O(log n), worst case O(n) for skewed trees.
  * @space O(1) as no extra space is used.
