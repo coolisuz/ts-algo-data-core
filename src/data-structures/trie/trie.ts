@@ -26,7 +26,10 @@ export class Trie {
     }
 
     /**
-     * Inserts a word into the Trie.
+     * Inserts a word into the Trie
+     * 
+     * @time O(n) - since it make n iterations
+     * @space O(1) - no extra space used
      * @param key - The word to insert into the Trie
      */
     insert(key: string): void {
@@ -47,5 +50,32 @@ export class Trie {
         }
 
         currentNode?.markAsLeaf();
+    }
+
+    /**
+     * Searches for a word in the Trie
+     * 
+     * @time O(n) - where n is the length of the word
+     * @space O(1) - no extra space used
+     * @param word - The word to search for
+     * @returns true if the word exists in the Trie false otherwise
+     */
+    search(word: string): boolean {
+        if (!word) return false;
+
+        word = word.toLowerCase();
+        let currentNode = this.root;
+
+        for (let level = 0; level < word.length; level++) {
+            const index = this.getIndex(word[level]);
+
+            if (!currentNode?.children[index]) {
+                return false;
+            }
+
+            currentNode = currentNode.children[index]!;
+        }
+
+        return currentNode?.isEndWord ?? false;
     }
 }
