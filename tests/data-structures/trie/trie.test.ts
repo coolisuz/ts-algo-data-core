@@ -54,4 +54,36 @@ describe("Trie", () => {
             expect(trie.search("c")).toBe(true);
         });
     });
+
+    describe("delete", () => {
+        it("should delete a word that exists in the trie", () => {
+            trie.insert("hello");
+            expect(trie.search("hello")).toBe(true);
+            expect(trie.delete("hello")).toBe(true);
+            expect(trie.search("hello")).toBe(false);
+        });
+
+        it("should return false when trying to delete a non-existent word", () => {
+            trie.insert("hello");
+            expect(trie.delete("world")).toBe(false);
+            expect(trie.search("hello")).toBe(true);
+        });
+
+        it("should handle case-insensitive deletion", () => {
+            trie.insert("hello");
+            expect(trie.delete("HELLO")).toBe(true);
+            expect(trie.search("hello")).toBe(false);
+        });
+
+        it("should return false when trying to delete from an empty trie", () => {
+            expect(trie.delete("hello")).toBe(false);
+        });
+
+        it("should return false when trying to delete null or empty string", () => {
+            trie.insert("hello");
+            expect(trie.delete(null as unknown as string)).toBe(false);
+            expect(trie.delete("")).toBe(false);
+            expect(trie.search("hello")).toBe(true);
+        });
+    });
 });

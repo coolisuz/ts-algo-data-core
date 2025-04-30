@@ -35,7 +35,7 @@ export class Trie {
     insert(key: string): void {
         if (key === null) return;
 
-        key = key.toLocaleLowerCase();
+        key = key.toLowerCase();
         let currentNode = this.root;
 
         if (key === "") {
@@ -45,10 +45,8 @@ export class Trie {
             return;
         }
 
-        let index = 0;
-
         for (let level = 0; level < key.length; level++) {
-            index = this.getIndex(key[level]);
+            const index = this.getIndex(key[level]);
 
             if (currentNode?.children[index] === null) {
                 currentNode.children[index] = new TrieNode(key[level]);
@@ -97,12 +95,14 @@ export class Trie {
      * @time O(n) - where n is the length of the word
      * @space O(n) - due to recursive call stack
      * @param word - The word to delete from the Trie
+     * @returns boolean indicating whether the word was successfully deleted
      */
     delete(word: string): boolean {
-        if (this.root === null || word === null) {
+        if (this.root === null || word === null || word === "") {
             return false;
         }
 
+        word = word.toLowerCase();
         return this.deleteHelper(word, this.root, word.length, 0);
     }
 
@@ -121,61 +121,43 @@ export class Trie {
         length: number,
         level: number,
     ): boolean {
-        let deletedSelf = false;
-
-        if (currentNode == null) {
-            return deletedSelf;
+        if (currentNode === null) {
+            return false;
         }
 
-        if (level == length) {
-            if (this.hasNoChildren(currentNode)) {
-                currentNode = null;
-                deletedSelf = true;
-            } else {
-                currentNode.unMarkAsLeaf();
-                deletedSelf = false;
-            }
-        } else {
-            let childNode = currentNode.children[this.getIndex(word[level])];
-            let childDeleted = this.deleteHelper(
-                word,
-                childNode,
-                length,
-                level + 1,
-            );
-
-            if (childDeleted) {
-                currentNode.children[this.getIndex(word[level])] = null;
-
-                if (currentNode.isEndWord) {
-                    deletedSelf = false;
-                } else if (this.hasNoChildren(currentNode) == false) {
-                    deletedSelf = false;
-                } else {
-                    currentNode = null;
-                    deletedSelf = true;
-                }
-            } else {
-                deletedSelf = false;
-            }
-        }
-
-        return deletedSelf;
-    }
-
-    /**
-     * Checks if a node has any non-null children
-     *
-     * @param currentNode - The node to check
-     * @returns true if the node has no children, false otherwise
-     */
-    private hasNoChildren(currentNode: TrieNode): boolean {
-        for (let i = 0; i < currentNode.children.length; i++) {
-            if (currentNode.children[i] !== null) {
+        // Base case: reached the end of the word
+        if (level === length) {
+            if (!currentNode.isEndWord) {
                 return false;
             }
+            currentNode.unMarkAsLeaf();
+            return currentNode.hasNoChildren();
         }
 
-        return true;
+        // Get the child node for the current character
+        const index = this.getIndex(word[level]);
+        const childNode = currentNode.children[index];
+
+        // If child doesn't exist word is not in trie
+        if (childNode === null) {
+            return false;
+        }
+
+        // Recursively delete the child
+        const shouldDeleteChild = this.deleteHelper(
+            word,
+            childNode,
+            length,
+            level + 1,
+        );
+
+        // If child should be deleted remove it
+        if (shouldDeleteChild) {
+            currentNode.children[index] = null;
+        }
+
+        // Return true if this node should be deleted
+        // (it has no children and is not the end of another word)
+        return currentNode.hasNoChildren() && !currentNode.isEndWord;
     }
 }
