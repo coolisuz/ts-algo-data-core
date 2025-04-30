@@ -90,4 +90,92 @@ export class Trie {
 
         return currentNode?.isEndWord ?? false;
     }
+
+    /**
+     * Deletes a word from the Trie
+     *
+     * @time O(n) - where n is the length of the word
+     * @space O(n) - due to recursive call stack
+     * @param word - The word to delete from the Trie
+     */
+    delete(word: string): boolean {
+        if (this.root === null || word === null) {
+            return false;
+        }
+
+        return this.deleteHelper(word, this.root, word.length, 0);
+    }
+
+    /**
+     * Helper method to recursively delete a word from the Trie
+     *
+     * @param word - The word to delete
+     * @param currentNode - The current node being processed
+     * @param length - The length of the word
+     * @param level - The current level in the Trie
+     * @returns boolean indicating whether the current node was deleted
+     */
+    private deleteHelper(
+        word: string,
+        currentNode: TrieNode | null,
+        length: number,
+        level: number,
+    ): boolean {
+        let deletedSelf = false;
+
+        if (currentNode == null) {
+            return deletedSelf;
+        }
+
+        if (level == length) {
+            if (this.hasNoChildren(currentNode)) {
+                currentNode = null;
+                deletedSelf = true;
+            } else {
+                currentNode.unMarkAsLeaf();
+                deletedSelf = false;
+            }
+        } else {
+            let childNode = currentNode.children[this.getIndex(word[level])];
+            let childDeleted = this.deleteHelper(
+                word,
+                childNode,
+                length,
+                level + 1,
+            );
+
+            if (childDeleted) {
+                currentNode.children[this.getIndex(word[level])] = null;
+
+                if (currentNode.isEndWord) {
+                    deletedSelf = false;
+                } else if (this.hasNoChildren(currentNode) == false) {
+                    deletedSelf = false;
+                } else {
+                    currentNode = null;
+                    deletedSelf = true;
+                }
+            } else {
+                deletedSelf = false;
+            }
+        }
+
+        return deletedSelf;
+    }
+
+    /**
+     * Checks if a node has any non-null children
+     *
+     * @param currentNode - The node to check
+     * @returns true if the node has no children, false otherwise
+     */
+    private hasNoChildren(currentNode: TrieNode): boolean {
+        for (let i = 0; i < currentNode.children.length; i++) {
+            if (currentNode.children[i] !== null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
