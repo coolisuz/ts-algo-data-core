@@ -27,7 +27,7 @@ export class Trie {
 
     /**
      * Inserts a word into the Trie
-     * 
+     *
      * @time O(n) - since it make n iterations
      * @space O(1) - no extra space used
      * @param key - The word to insert into the Trie
@@ -37,6 +37,14 @@ export class Trie {
 
         key = key.toLocaleLowerCase();
         let currentNode = this.root;
+
+        if (key === "") {
+            if (currentNode) {
+                currentNode.markAsLeaf();
+            }
+            return;
+        }
+
         let index = 0;
 
         for (let level = 0; level < key.length; level++) {
@@ -54,7 +62,7 @@ export class Trie {
 
     /**
      * Searches for a word in the Trie
-     * 
+     *
      * @time O(n) - where n is the length of the word
      * @space O(1) - no extra space used
      * @param word - The word to search for
@@ -65,6 +73,10 @@ export class Trie {
 
         word = word.toLowerCase();
         let currentNode = this.root;
+
+        if (word === "") {
+            return currentNode?.isEndWord ?? false;
+        }
 
         for (let level = 0; level < word.length; level++) {
             const index = this.getIndex(word[level]);
