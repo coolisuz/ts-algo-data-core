@@ -1,4 +1,4 @@
-import { TrieNode } from '../../data-structures/trie/index';
+import { TrieNode } from "../../data-structures/trie/index";
 
 /**
  * Counts the total number of words stored in a trie using a recursive approach.
@@ -10,7 +10,7 @@ import { TrieNode } from '../../data-structures/trie/index';
 export function findTotalWords(root: TrieNode): number {
     let numOfWords = 0;
 
-    function traverse(node: TrieNode) {
+    function traverse(node: TrieNode): void {
         if (node.isEndWord) {
             numOfWords++;
         }
@@ -41,7 +41,7 @@ export function findTotalWordsV2(root: TrieNode): number {
 
     while (stack.length > 0) {
         const node = stack.pop()!;
-        
+
         if (node.isEndWord) {
             numOfWords++;
         }
