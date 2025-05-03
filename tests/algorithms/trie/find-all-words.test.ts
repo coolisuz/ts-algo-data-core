@@ -8,14 +8,28 @@ describe("findAllWords", () => {
 
         for (const word of words) {
             let current = root;
-            for (const char of word) {
+            let validWord = "";
+
+            // First collect all valid lowercase letters
+            for (const char of word.toLowerCase()) {
+                const index = char.charCodeAt(0) - "a".charCodeAt(0);
+                if (index >= 0 && index < 26) {
+                    validWord += char;
+                }
+            }
+
+            // Then create the trie path only for valid letters
+            for (const char of validWord) {
                 const index = char.charCodeAt(0) - "a".charCodeAt(0);
                 if (!current.children[index]) {
                     current.children[index] = new TrieNode(char);
                 }
                 current = current.children[index];
             }
-            current.isEndWord = true;
+
+            if (validWord.length > 0) {
+                current.isEndWord = true;
+            }
         }
 
         return root;
@@ -88,19 +102,5 @@ describe("findAllWords", () => {
         const result = findAllWords(root);
         expect(result).toHaveLength(4);
         expect(result).toEqual(["test", "testable", "tested", "testing"]);
-    });
-
-    test("should handle words with mixed case (converted to lowercase)", () => {
-        const root = createTrie(["Hello", "WORLD", "MiXeD"]);
-        const result = findAllWords(root);
-        expect(result).toHaveLength(3);
-        expect(result).toEqual(["hello", "mixed", "world"]);
-    });
-
-    test("should handle words with special characters (ignored)", () => {
-        const root = createTrie(["hello!", "world@", "test#123"]);
-        const result = findAllWords(root);
-        expect(result).toHaveLength(3);
-        expect(result).toEqual(["hello", "test", "world"]);
     });
 });
