@@ -70,4 +70,37 @@ describe("findAllWords", () => {
         expect(result).toHaveLength(4);
         expect(result).toEqual(["a", "aa", "aaa", "aaaa"]);
     });
+
+    test("should handle words with all letters of the alphabet", () => {
+        const root = createTrie(["abcdefghijklmnopqrstuvwxyz"]);
+        expect(findAllWords(root)).toEqual(["abcdefghijklmnopqrstuvwxyz"]);
+    });
+
+    test("should handle words with repeated letters", () => {
+        const root = createTrie(["book", "boo", "boom", "boomer"]);
+        const result = findAllWords(root);
+        expect(result).toHaveLength(4);
+        expect(result).toEqual(["boo", "book", "boom", "boomer"]);
+    });
+
+    test("should handle words that are prefixes of each other", () => {
+        const root = createTrie(["test", "testing", "tested", "testable"]);
+        const result = findAllWords(root);
+        expect(result).toHaveLength(4);
+        expect(result).toEqual(["test", "testable", "tested", "testing"]);
+    });
+
+    test("should handle words with mixed case (converted to lowercase)", () => {
+        const root = createTrie(["Hello", "WORLD", "MiXeD"]);
+        const result = findAllWords(root);
+        expect(result).toHaveLength(3);
+        expect(result).toEqual(["hello", "mixed", "world"]);
+    });
+
+    test("should handle words with special characters (ignored)", () => {
+        const root = createTrie(["hello!", "world@", "test#123"]);
+        const result = findAllWords(root);
+        expect(result).toHaveLength(3);
+        expect(result).toEqual(["hello", "test", "world"]);
+    });
 });
