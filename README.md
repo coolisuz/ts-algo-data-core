@@ -21,9 +21,9 @@ This repository serves as both a practical reference and learning resource for c
  - [x] Binary Search Tree
  - [ ] Heap / Priority Queue
  - [x] Graph
- - [ ] Trie
- - [ ] AVL Tree
- - [ ] Red-Black Tree
+ - [x] Trie
+ - [x] AVL Tree
+ - [x] Red-Black Tree
  - [ ] Disjoint Set
 
 ### Algorithms
