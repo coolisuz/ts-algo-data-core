@@ -61,6 +61,42 @@ export function countWordsWithPrefix(root: TrieNode, prefix: string): number {
 }
 
 /**
+ * Finds the longest common prefix among all words in the trie.
+ * The algorithm traverses the trie as long as there's exactly one child node,
+ * building the common prefix character by character.
+ * 
+ * @param root - The root node of the trie
+ * @time O(L) where L is the length of the longest common prefix
+ * @space O(1) as we only store the prefix string
+
+ */
+export function findLongestCommonPrefix(root: TrieNode): string {
+    let current = root;
+    let prefix = "";
+
+    while (true) {
+        let childCount = 0;
+        let nextChild: TrieNode | null = null;
+
+        for (let i = 0; i < 26; i++) {
+            if (current.children[i] !== null) {
+                childCount++;
+                nextChild = current.children[i];
+            }
+        }
+
+        if (childCount !== 1 || current.isEndWord) {
+            break;
+        }
+
+        prefix += nextChild!.value;
+        current = nextChild!;
+    }
+
+    return prefix;
+}
+
+/**
  * Trie-based prefix search implementation.
  * Stores words and allows checking if any word starts with a given prefix.
  */
@@ -145,5 +181,14 @@ export class PrefixSearch {
         }
 
         return countWordsWithPrefix(this.root, prefix);
+    }
+
+    /**
+     * Finds the longest common prefix among all words in the trie.
+     * @returns The longest common prefix string
+     * @throws Error if the trie contains invalid characters
+     */
+    findLongestCommonPrefix(): string {
+        return findLongestCommonPrefix(this.root);
     }
 }
