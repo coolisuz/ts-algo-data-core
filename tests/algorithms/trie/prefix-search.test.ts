@@ -2,6 +2,7 @@ import {
     PrefixSearch,
     hasPrefix,
     countWordsWithPrefix,
+    findLongestCommonPrefix,
 } from "../../../src/algorithms/trie/prefix-search";
 import { TrieNode } from "../../../src/data-structures/trie";
 
@@ -94,6 +95,56 @@ describe("Prefix Search", () => {
         });
     });
 
+    describe("findLongestCommonPrefix function", () => {
+        function createTrie(words: string[]): TrieNode {
+            const root = new TrieNode("");
+
+            for (const word of words) {
+                let current = root;
+                for (const char of word) {
+                    const index = char.charCodeAt(0) - "a".charCodeAt(0);
+                    if (!current.children[index]) {
+                        current.children[index] = new TrieNode(char);
+                    }
+                    current = current.children[index];
+                }
+                current.isEndWord = true;
+            }
+
+            return root;
+        }
+
+        test("should find longest common prefix", () => {
+            const root = createTrie(["flower", "flow", "flight"]);
+            expect(findLongestCommonPrefix(root)).toBe("fl");
+        });
+
+        test("should return empty string for no common prefix", () => {
+            const root = createTrie(["dog", "racecar", "car"]);
+            expect(findLongestCommonPrefix(root)).toBe("");
+        });
+
+        test("should return empty string for empty trie", () => {
+            const root = new TrieNode("");
+            expect(findLongestCommonPrefix(root)).toBe("");
+        });
+
+        test("should return entire word for single word", () => {
+            const root = createTrie(["hello"]);
+            expect(findLongestCommonPrefix(root)).toBe("hello");
+        });
+
+        test("should handle words with same prefix", () => {
+            const root = createTrie(["test", "testing", "tested"]);
+            expect(findLongestCommonPrefix(root)).toBe("test");
+        });
+
+        test("should handle words with nested prefixes", () => {
+            const root = createTrie(["a", "aa", "aaa"]);
+            expect(findLongestCommonPrefix(root)).toBe("a");
+        });
+    });
+
     describe("PrefixSearch class", () => {
         let prefixSearch: PrefixSearch;
 
@@ -164,6 +215,26 @@ describe("Prefix Search", () => {
             expect(prefixSearch.countWordsWithPrefix("bo")).toBe(4);
             expect(prefixSearch.countWordsWithPrefix("boo")).toBe(4);
             expect(prefixSearch.countWordsWithPrefix("boom")).toBe(2);
+        });
+
+        test("should find longest common prefix", () => {
+            prefixSearch.insertWords(["flower", "flow", "flight"]);
+            expect(prefixSearch.findLongestCommonPrefix()).toBe("fl");
+        });
+
+        test("should return empty string for no common prefix", () => {
+            prefixSearch.insertWords(["dog", "racecar", "car"]);
+            expect(prefixSearch.findLongestCommonPrefix()).toBe("");
+        });
+
+        test("should return entire word for single word", () => {
+            prefixSearch.insert("hello");
+            expect(prefixSearch.findLongestCommonPrefix()).toBe("hello");
+        });
+
+        test("should handle words with same prefix", () => {
+            prefixSearch.insertWords(["test", "testing", "tested"]);
+            expect(prefixSearch.findLongestCommonPrefix()).toBe("test");
         });
     });
 });
