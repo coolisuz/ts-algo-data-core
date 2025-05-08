@@ -13,15 +13,51 @@ export function hasPrefix(root: TrieNode, prefix: string): boolean {
 
     for (const char of prefix) {
         const index = char.charCodeAt(0) - "a".charCodeAt(0);
-
         if (index < 0 || index >= 26 || !current.children[index]) {
             return false;
         }
-
         current = current.children[index];
     }
 
     return true;
+}
+
+/**
+ * Counts the number of words in the trie that start with the given prefix.
+ * @param root - The root node of the trie
+ * @param prefix - The prefix to search for
+ * @returns The number of words that start with the prefix
+ * @time O(P + N) where P is the length of the prefix and N is the number of nodes in the subtree
+ * @space O(H) where H is the height of the subtree (due to recursion)
+ */
+export function countWordsWithPrefix(root: TrieNode, prefix: string): number {
+    let current = root;
+
+    for (const char of prefix) {
+        const index = char.charCodeAt(0) - "a".charCodeAt(0);
+        if (index < 0 || index >= 26 || !current.children[index]) {
+            return 0;
+        }
+        current = current.children[index];
+    }
+
+    let count = 0;
+
+    function countWords(node: TrieNode): void {
+        if (node.isEndWord) {
+            count++;
+        }
+
+        for (let i = 0; i < 26; i++) {
+            const child = node.children[i];
+            if (child !== null) {
+                countWords(child);
+            }
+        }
+    }
+
+    countWords(current);
+    return count;
 }
 
 /**
@@ -49,8 +85,6 @@ export class PrefixSearch {
 
         for (const char of word) {
             const index = char.charCodeAt(0) - "a".charCodeAt(0);
-
-            // Validate character
             if (index < 0 || index >= 26) {
                 throw new Error("Word must contain only lowercase letters");
             }
@@ -86,7 +120,6 @@ export class PrefixSearch {
      * @throws Error if prefix contains invalid characters
      */
     hasPrefix(prefix: string): boolean {
-        // Validate prefix
         for (const char of prefix) {
             const index = char.charCodeAt(0) - "a".charCodeAt(0);
             if (index < 0 || index >= 26) {
@@ -95,5 +128,22 @@ export class PrefixSearch {
         }
 
         return hasPrefix(this.root, prefix);
+    }
+
+    /**
+     * Counts the number of words that start with the given prefix.
+     * @param prefix - The prefix to search for (must be lowercase letters only)
+     * @returns The number of words that start with the prefix
+     * @throws Error if prefix contains invalid characters
+     */
+    countWordsWithPrefix(prefix: string): number {
+        for (const char of prefix) {
+            const index = char.charCodeAt(0) - "a".charCodeAt(0);
+            if (index < 0 || index >= 26) {
+                throw new Error("Prefix must contain only lowercase letters");
+            }
+        }
+
+        return countWordsWithPrefix(this.root, prefix);
     }
 }
