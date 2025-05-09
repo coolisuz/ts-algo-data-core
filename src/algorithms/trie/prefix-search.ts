@@ -1,6 +1,41 @@
 import { TrieNode } from "../../data-structures/trie";
 
 /**
+ * Creates a trie from an array of words.
+ *
+ * @param words - Array of words to insert into the trie
+ * @returns The root node of the created trie
+ * @throws Error if any word contains invalid characters or exceeds maximum length
+ */
+export function createTrie(words: string[]): TrieNode {
+    const root = new TrieNode("");
+
+    for (const word of words) {
+        if (word.length > 50) {
+            throw new Error("Word length exceeds maximum of 50 characters");
+        }
+
+        let current = root;
+
+        for (const char of word) {
+            const index = char.charCodeAt(0) - "a".charCodeAt(0);
+            if (index < 0 || index >= 26) {
+                throw new Error("Word must contain only lowercase letters");
+            }
+
+            if (!current.children[index]) {
+                current.children[index] = new TrieNode(char);
+            }
+            current = current.children[index];
+        }
+
+        current.isEndWord = true;
+    }
+
+    return root;
+}
+
+/**
  * Checks if any word in the trie starts with the given prefix.
  * @param root - The root node of the trie
  * @param prefix - The prefix to search for
@@ -97,6 +132,71 @@ export function findLongestCommonPrefix(root: TrieNode): string {
 }
 
 /**
+ * Finds all words in the trie that match a given pattern.
+ * The pattern can contain wildcards (*) that match any character.
+ *
+ * @param root - The root node of the trie
+ * @param pattern - The pattern to match against (can contain * wildcards)
+ * @returns Array of words that match the pattern
+ * @time O(N * 26^W) where N is number of nodes and W is number of wildcards
+ * @space O(L) where L is the length of the longest matching word
+ *
+ * @example
+ * const root = createTrie(["cat", "cut", "cot", "dog"]);
+ * findWordsWithPattern(root, "c*t"); // returns ["cat", "cut", "cot"]
+ *
+ * @example
+ * const root = createTrie(["cat", "cut", "cot", "dog"]);
+ * findWordsWithPattern(root, "c**"); // returns ["cat", "cut", "cot"]
+ */
+export function findWordsWithPattern(
+    root: TrieNode,
+    pattern: string,
+): string[] {
+    const words: string[] = [];
+
+    function findWords(
+        node: TrieNode,
+        currentWord: string,
+        patternIndex: number,
+    ): void {
+        if (patternIndex === pattern.length) {
+            if (node.isEndWord) {
+                words.push(currentWord);
+            }
+            return;
+        }
+
+        const char = pattern[patternIndex];
+
+        if (char === "*") {
+            for (let i = 0; i < 26; i++) {
+                const child = node.children[i];
+                if (child !== null) {
+                    findWords(
+                        child,
+                        currentWord + String.fromCharCode(97 + i),
+                        patternIndex + 1,
+                    );
+                }
+            }
+        } else {
+            const index = char.charCodeAt(0) - "a".charCodeAt(0);
+            if (index >= 0 && index < 26 && node.children[index] !== null) {
+                findWords(
+                    node.children[index]!,
+                    currentWord + char,
+                    patternIndex + 1,
+                );
+            }
+        }
+    }
+
+    findWords(root, "", 0);
+    return words;
+}
+
+/**
  * Trie-based prefix search implementation.
  * Stores words and allows checking if any word starts with a given prefix.
  */
@@ -190,5 +290,28 @@ export class PrefixSearch {
      */
     findLongestCommonPrefix(): string {
         return findLongestCommonPrefix(this.root);
+    }
+
+    /**
+     * Finds all words that match a given pattern.
+     * The pattern can contain wildcards (*) that match any character.
+     *
+     * @param pattern - The pattern to match against (can contain * wildcards)
+     * @returns Array of words that match the pattern
+     * @throws Error if pattern contains invalid characters
+     */
+    findWordsWithPattern(pattern: string): string[] {
+        for (const char of pattern) {
+            if (
+                char !== "*" &&
+                (char.charCodeAt(0) < 97 || char.charCodeAt(0) > 122)
+            ) {
+                throw new Error(
+                    "Pattern must contain only lowercase letters and * wildcards",
+                );
+            }
+        }
+
+        return findWordsWithPattern(this.root, pattern);
     }
 }
