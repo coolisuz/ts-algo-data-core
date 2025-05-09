@@ -5,6 +5,10 @@ import {
     findLongestCommonPrefix,
 } from "../../../src/algorithms/trie/prefix-search";
 import { TrieNode } from "../../../src/data-structures/trie";
+import {
+    createTrie,
+    findWordsWithPattern,
+} from "../../../src/algorithms/trie/prefix-search";
 
 describe("Prefix Search", () => {
     describe("hasPrefix function", () => {
@@ -236,5 +240,190 @@ describe("Prefix Search", () => {
             prefixSearch.insertWords(["test", "testing", "tested"]);
             expect(prefixSearch.findLongestCommonPrefix()).toBe("test");
         });
+    });
+});
+
+describe("PrefixSearch", () => {
+    let prefixSearch: PrefixSearch;
+
+    beforeEach(() => {
+        prefixSearch = new PrefixSearch();
+    });
+
+    describe("insert", () => {
+        it("should insert a word correctly", () => {
+            prefixSearch.insert("hello");
+            expect(prefixSearch.hasPrefix("hello")).toBe(true);
+        });
+
+        it("should throw error for word with invalid characters", () => {
+            expect(() => prefixSearch.insert("HELLO")).toThrow(
+                "Word must contain only lowercase letters",
+            );
+            expect(() => prefixSearch.insert("hello123")).toThrow(
+                "Word must contain only lowercase letters",
+            );
+        });
+
+        it("should throw error for word exceeding maximum length", () => {
+            const longWord = "a".repeat(51);
+            expect(() => prefixSearch.insert(longWord)).toThrow(
+                "Word length exceeds maximum of 50 characters",
+            );
+        });
+    });
+
+    describe("insertWords", () => {
+        it("should insert multiple words correctly", () => {
+            prefixSearch.insertWords(["hello", "world", "test"]);
+            expect(prefixSearch.hasPrefix("hello")).toBe(true);
+            expect(prefixSearch.hasPrefix("world")).toBe(true);
+            expect(prefixSearch.hasPrefix("test")).toBe(true);
+        });
+
+        it("should throw error for word list exceeding maximum size", () => {
+            const words = Array(1001).fill("test");
+            expect(() => prefixSearch.insertWords(words)).toThrow(
+                "Word list size exceeds maximum of 1000",
+            );
+        });
+    });
+
+    describe("hasPrefix", () => {
+        beforeEach(() => {
+            prefixSearch.insertWords(["hello", "world", "help", "testing"]);
+        });
+
+        it("should return true for existing prefix", () => {
+            expect(prefixSearch.hasPrefix("hel")).toBe(true);
+            expect(prefixSearch.hasPrefix("wor")).toBe(true);
+        });
+
+        it("should return false for non-existing prefix", () => {
+            expect(prefixSearch.hasPrefix("xyz")).toBe(false);
+            expect(prefixSearch.hasPrefix("hellp")).toBe(false);
+        });
+
+        it("should throw error for prefix with invalid characters", () => {
+            expect(() => prefixSearch.hasPrefix("HELLO")).toThrow(
+                "Prefix must contain only lowercase letters",
+            );
+            expect(() => prefixSearch.hasPrefix("hello123")).toThrow(
+                "Prefix must contain only lowercase letters",
+            );
+        });
+    });
+
+    describe("countWordsWithPrefix", () => {
+        beforeEach(() => {
+            prefixSearch.insertWords([
+                "hello",
+                "world",
+                "help",
+                "testing",
+                "helmet",
+            ]);
+        });
+
+        it("should return correct count for prefix", () => {
+            expect(prefixSearch.countWordsWithPrefix("hel")).toBe(3);
+            expect(prefixSearch.countWordsWithPrefix("wor")).toBe(1);
+            expect(prefixSearch.countWordsWithPrefix("test")).toBe(1);
+        });
+
+        it("should return 0 for non-existing prefix", () => {
+            expect(prefixSearch.countWordsWithPrefix("xyz")).toBe(0);
+            expect(prefixSearch.countWordsWithPrefix("hellp")).toBe(0);
+        });
+
+        it("should throw error for prefix with invalid characters", () => {
+            expect(() => prefixSearch.countWordsWithPrefix("HELLO")).toThrow(
+                "Prefix must contain only lowercase letters",
+            );
+            expect(() => prefixSearch.countWordsWithPrefix("hello123")).toThrow(
+                "Prefix must contain only lowercase letters",
+            );
+        });
+    });
+
+    describe("findLongestCommonPrefix", () => {
+        it("should return empty string for empty trie", () => {
+            expect(prefixSearch.findLongestCommonPrefix()).toBe("");
+        });
+
+        it("should return empty string for trie with no common prefix", () => {
+            prefixSearch.insertWords(["hello", "world"]);
+            expect(prefixSearch.findLongestCommonPrefix()).toBe("");
+        });
+
+        it("should return longest common prefix", () => {
+            prefixSearch.insertWords(["hello", "help", "helmet"]);
+            expect(prefixSearch.findLongestCommonPrefix()).toBe("hel");
+        });
+
+        it("should return word if it is a prefix of all other words", () => {
+            prefixSearch.insertWords(["hello", "helloworld", "hellotest"]);
+            expect(prefixSearch.findLongestCommonPrefix()).toBe("hello");
+        });
+    });
+
+    describe("findWordsWithPattern", () => {
+        beforeEach(() => {
+            prefixSearch.insertWords([
+                "cat",
+                "cut",
+                "cot",
+                "dog",
+                "bat",
+                "rat",
+                "hat",
+            ]);
+        });
+
+        it("should find words matching pattern with single wildcard", () => {
+            const result = prefixSearch.findWordsWithPattern("c*t");
+            expect(result).toEqual(
+                expect.arrayContaining(["cat", "cut", "cot"]),
+            );
+            expect(result.length).toBe(3);
+        });
+
+        it("should return empty array for no matches", () => {
+            const result = prefixSearch.findWordsWithPattern("xyz");
+            expect(result).toEqual([]);
+        });
+
+        it("should throw error for pattern with invalid characters", () => {
+            expect(() => prefixSearch.findWordsWithPattern("HELLO")).toThrow(
+                "Pattern must contain only lowercase letters and * wildcards",
+            );
+            expect(() => prefixSearch.findWordsWithPattern("hello123")).toThrow(
+                "Pattern must contain only lowercase letters and * wildcards",
+            );
+        });
+    });
+});
+
+describe("findWordsWithPattern", () => {
+    it("should find words matching pattern with single wildcard", () => {
+        const root = createTrie(["cat", "cut", "cot", "dog"]);
+        const result = findWordsWithPattern(root, "c*t");
+        expect(result).toEqual(expect.arrayContaining(["cat", "cut", "cot"]));
+        expect(result.length).toBe(3);
+    });
+
+    it("should find words matching pattern with all wildcards", () => {
+        const root = createTrie(["cat", "cut", "cot", "dog"]);
+        const result = findWordsWithPattern(root, "***");
+        expect(result).toEqual(
+            expect.arrayContaining(["cat", "cut", "cot", "dog"]),
+        );
+        expect(result.length).toBe(4);
+    });
+
+    it("should return empty array for no matches", () => {
+        const root = createTrie(["cat", "cut", "cot", "dog"]);
+        const result = findWordsWithPattern(root, "xyz");
+        expect(result).toEqual([]);
     });
 });
