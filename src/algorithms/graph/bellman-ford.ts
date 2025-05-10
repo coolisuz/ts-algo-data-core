@@ -33,7 +33,6 @@ export function bellmanFord(
     }
     distances.set(source, 0);
 
-
     for (let i = 0; i < vertices - 1; i++) {
         let updated = false;
         // Process all edges in each iteration
