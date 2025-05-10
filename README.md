@@ -24,7 +24,6 @@ This repository serves as both a practical reference and learning resource for c
  - [x] Trie
  - [x] AVL Tree
  - [x] Red-Black Tree
- - [ ] Disjoint Set
 
 ### Algorithms
 #### Sorting
@@ -46,7 +45,8 @@ This repository serves as both a practical reference and learning resource for c
 
 #### Graph Algorithms
 
- - [ ] Dijkstra's Algorithm
+ - [x] Dijkstra's Algorithm
+ - [x] Bellman Ford Algorithm
  - [ ] Topological Sort
 
 #### Dynamic Programming
