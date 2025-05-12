@@ -160,4 +160,46 @@ export class Trie {
         // (it has no children and is not the end of another word)
         return currentNode.hasNoChildren() && !currentNode.isEndWord;
     }
+
+    /**
+     * Finds all words stored in the Trie
+     *
+     * @time O(n * m) - where n is the number of nodes and m is the average word length
+     * @space O(n) - where n is the number of words stored in the trie
+     * @returns An array of all words stored in the Trie
+     */
+    findAllWords(): string[] {
+        const words: string[] = [];
+        if (!this.root) return words;
+
+        this.findAllWordsHelper(this.root, "", words);
+        return words;
+    }
+
+    /**
+     * Helper method to recursively find all words in the Trie
+     *
+     * @param node - The current node being processed
+     * @param currentWord - The word being built during traversal
+     * @param words - The array to store found words
+     */
+    private findAllWordsHelper(
+        node: TrieNode,
+        currentWord: string,
+        words: string[],
+    ): void {
+        // If current node marks the end of a word and add it to the result
+        if (node.isEndWord) {
+            words.push(currentWord);
+        }
+
+        // Recursively check all possible children
+        for (let i = 0; i < 26; i++) {
+            const child = node.children[i];
+            if (child) {
+                const char = String.fromCharCode(i + "a".charCodeAt(0));
+                this.findAllWordsHelper(child, currentWord + char, words);
+            }
+        }
+    }
 }
