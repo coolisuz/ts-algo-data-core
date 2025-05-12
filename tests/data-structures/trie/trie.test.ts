@@ -87,3 +87,75 @@ describe("Trie", () => {
         });
     });
 });
+
+describe("findAllWords", () => {
+    it("should return empty array for empty trie", () => {
+        const trie = new Trie();
+        expect(trie.findAllWords()).toEqual([]);
+    });
+
+    it("should find single word in trie", () => {
+        const trie = new Trie();
+        trie.insert("hello");
+        expect(trie.findAllWords()).toEqual(["hello"]);
+    });
+
+    it("should find multiple words in trie", () => {
+        const trie = new Trie();
+        trie.insert("hello");
+        trie.insert("world");
+        trie.insert("hi");
+        const words = trie.findAllWords();
+        expect(words).toContain("hello");
+        expect(words).toContain("world");
+        expect(words).toContain("hi");
+        expect(words.length).toBe(3);
+    });
+
+    it("should find words with common prefixes", () => {
+        const trie = new Trie();
+        trie.insert("cat");
+        trie.insert("car");
+        trie.insert("card");
+        const words = trie.findAllWords();
+        expect(words).toContain("cat");
+        expect(words).toContain("car");
+        expect(words).toContain("card");
+        expect(words.length).toBe(3);
+    });
+
+    it("should find words that are prefixes of other words", () => {
+        const trie = new Trie();
+        trie.insert("he");
+        trie.insert("hello");
+        const words = trie.findAllWords();
+        expect(words).toContain("he");
+        expect(words).toContain("hello");
+        expect(words.length).toBe(2);
+    });
+
+    it("should handle case-insensitive words", () => {
+        const trie = new Trie();
+        trie.insert("Hello");
+        trie.insert("WORLD");
+        const words = trie.findAllWords();
+        expect(words).toContain("hello");
+        expect(words).toContain("world");
+        expect(words.length).toBe(2);
+    });
+
+    it("should find words after deletion", () => {
+        const trie = new Trie();
+        trie.insert("hello");
+        trie.insert("world");
+        trie.delete("hello");
+        const words = trie.findAllWords();
+        expect(words).toEqual(["world"]);
+    });
+
+    it("should handle empty string as a word", () => {
+        const trie = new Trie();
+        trie.insert("");
+        expect(trie.findAllWords()).toEqual([""]);
+    });
+});
