@@ -19,7 +19,14 @@ export class maxHeap {
         }
     }
 
-    getMax(): void {}
+    getMax(): null | number {
+        if (this.elements != 0) {
+            return this.heap[0];
+        }
+
+        
+        return null;
+    }
 
     removeMax(): void {}
 
