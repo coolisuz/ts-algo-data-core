@@ -7,8 +7,7 @@ export class maxHeap {
         this.elements = 0;
     }
 
-
-    insert(val: number) {
+    insert(val: number): void {
         if (this.elements >= this.heap.length) {
             this.elements = this.elements + 1;
             this.heap.push(val);
@@ -20,11 +19,15 @@ export class maxHeap {
         }
     }
 
-    getMax() {}
+    getMax(): void {}
 
-    removeMax() {}
+    removeMax(): void {}
 
-    __percolateUp(index: number) {}
+    __percolateUp(index: number): number {
+        return index;
+    }
 
-    __maxHeapify(index: number) {}
+    __maxHeapify(index: number): number {
+        return index;
+    }
 }
