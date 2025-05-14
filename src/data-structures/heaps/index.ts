@@ -56,7 +56,24 @@ export class maxHeap {
         }
     }
 
-    __maxHeapify(index: number): number {
-        return index;
+    __maxHeapify(index: number): void {
+        let left = index * 2 + 1;
+        let right = index * 2 + 1;
+        let largest = index;
+
+        if (this.elements > left && this.heap[largest] < this.heap[left]) {
+            largest = left;
+        }
+
+        if (this.elements > right && this.heap[largest] < this.heap[right]) {
+            largest = right;
+        }
+
+        if (largest !== index) {
+            const temp = this.heap[largest];
+            this.heap[largest] = this.heap[index];
+            this.heap[index] = temp;
+            this.__maxHeapify(largest);
+        }
     }
 }
