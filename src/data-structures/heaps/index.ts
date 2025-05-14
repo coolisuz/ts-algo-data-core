@@ -24,11 +24,24 @@ export class maxHeap {
             return this.heap[0];
         }
 
-        
         return null;
     }
 
-    removeMax(): void {}
+    removeMax(): number | null {
+        if (this.elements > 1) {
+            const maxHeap = this.heap[0];
+            this.heap[0] = this.heap[this.elements - 1];
+            this.elements = this.elements - 1;
+            this.__maxHeapify(0);
+            return maxHeap;
+        } else if (this.elements === 1) {
+            const maxHeap = this.heap[0];
+            this.elements = this.elements - 1;
+            return maxHeap;
+        } else {
+            return null;
+        }
+    }
 
     __percolateUp(index: number): number {
         return index;
