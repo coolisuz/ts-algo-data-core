@@ -43,8 +43,17 @@ export class maxHeap {
         }
     }
 
-    __percolateUp(index: number): number {
-        return index;
+    __percolateUp(index: number): void {
+        const parent = Math.floor((index - 1) / 2);
+
+        if (index <= 0) {
+            return;
+        } else if (this.heap[parent] < this.heap[index]) {
+            const temp = this.heap[parent];
+            this.heap[parent] = this.heap[index];
+            this.heap[index] = temp;
+            this.__percolateUp(parent);
+        }
     }
 
     __maxHeapify(index: number): number {
