@@ -1,5 +1,7 @@
-export class maxHeap {
-    heap: number[];
+import { IMaxHeap } from "../interfaces";
+
+export class MaxHeap<T extends number | string> implements IMaxHeap<T> {
+    heap: T[];
     elements: number;
 
     constructor() {
@@ -7,19 +9,19 @@ export class maxHeap {
         this.elements = 0;
     }
 
-    insert(val: number): void {
+    insert(val: T): void {
         if (this.elements >= this.heap.length) {
             this.elements = this.elements + 1;
             this.heap.push(val);
-            this.__percolateUp(this.heap.length - 1);
+            this.percolateUp(this.heap.length - 1);
         } else {
             this.heap[this.elements] = val;
             this.elements = this.elements + 1;
-            this.__percolateUp(this.heap.length - 1);
+            this.percolateUp(this.heap.length - 1);
         }
     }
 
-    getMax(): null | number {
+    getMax(): null | T {
         if (this.elements != 0) {
             return this.heap[0];
         }
@@ -27,12 +29,12 @@ export class maxHeap {
         return null;
     }
 
-    removeMax(): number | null {
+    removeMax(): T | null {
         if (this.elements > 1) {
             const maxHeap = this.heap[0];
             this.heap[0] = this.heap[this.elements - 1];
             this.elements = this.elements - 1;
-            this.__maxHeapify(0);
+            this.maxHeapify(0);
             return maxHeap;
         } else if (this.elements === 1) {
             const maxHeap = this.heap[0];
@@ -43,7 +45,7 @@ export class maxHeap {
         }
     }
 
-    __percolateUp(index: number): void {
+    private percolateUp(index: number): void {
         const parent = Math.floor((index - 1) / 2);
 
         if (index <= 0) {
@@ -52,13 +54,13 @@ export class maxHeap {
             const temp = this.heap[parent];
             this.heap[parent] = this.heap[index];
             this.heap[index] = temp;
-            this.__percolateUp(parent);
+            this.percolateUp(parent);
         }
     }
 
-    __maxHeapify(index: number): void {
+    private maxHeapify(index: number): void {
         let left = index * 2 + 1;
-        let right = index * 2 + 1;
+        let right = index * 2 + 2;
         let largest = index;
 
         if (this.elements > left && this.heap[largest] < this.heap[left]) {
@@ -73,16 +75,16 @@ export class maxHeap {
             const temp = this.heap[largest];
             this.heap[largest] = this.heap[index];
             this.heap[index] = temp;
-            this.__maxHeapify(largest);
+            this.maxHeapify(largest);
         }
     }
 
-    buildHeap(arr: []): void {
+    buildHeap(arr: T[]): void {
         this.heap = arr;
         this.elements = this.heap.length;
 
         for (var i = this.heap.length - 1; i >= 0; i--) {
-            this.__maxHeapify(i);
+            this.maxHeapify(i);
         }
     }
 }
