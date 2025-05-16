@@ -19,6 +19,15 @@ export class MinHeap<T extends number | string> {
         }
     }
 
+    getMin(): T | null {
+        if (this.heaps.length != 0) {
+            return this.heaps[0];
+        }
 
-    private percolateUp(index: number): void {}
+        return null;
+    }
+
+    private percolateUp(index: number): void {
+        index;
+    }
 }
