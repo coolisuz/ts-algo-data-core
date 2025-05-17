@@ -67,4 +67,13 @@ export class MinHeap<T extends number | string> {
             this.minHeapify(smallest);
         }
     }
+
+    buildHeap(arr: T[]){
+        this.heaps = arr;
+        this.elements = this.heaps.length;
+        for (let i = this.heaps.length - 1 ; i >= 0 ; i--){
+             this.minHeapify(i);
+        }
+
+     }
 }
