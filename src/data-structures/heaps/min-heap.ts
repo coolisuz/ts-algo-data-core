@@ -27,7 +27,27 @@ export class MinHeap<T extends number | string> {
         return null;
     }
 
+    removeMin(): T | null {
+        if (this.elements > 1) {
+            let min = this.heaps[0];
+            this.heaps[0] = this.heaps[this.elements - 1];
+            this.elements = this.elements - 1;
+            this.meanheapify(0);
+            return min;
+        } else if (this.elements == 1) {
+            let min = this.heaps[0];
+            this.elements = this.elements - 1;
+            return min;
+        } else {
+            return null;
+        }
+    }
+
     private percolateUp(index: number): void {
+        index;
+    }
+
+    private meanheapify(index: number): void {
         index;
     }
 }
