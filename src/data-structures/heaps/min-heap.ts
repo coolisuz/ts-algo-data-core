@@ -1,4 +1,5 @@
-export class MinHeap<T extends number | string> {
+import { IMinHeap } from "../interfaces";
+export class MinHeap<T extends number | string> implements IMinHeap<T> {
     heaps: T[];
     elements: number;
 
@@ -68,12 +69,12 @@ export class MinHeap<T extends number | string> {
         }
     }
 
-    buildHeap(arr: T[]){
+    buildHeap(arr: T[]): void {
         this.heaps = arr;
         this.elements = this.heaps.length;
-        for (let i = this.heaps.length - 1 ; i >= 0 ; i--){
-             this.minHeapify(i);
+        
+        for (let i = this.heaps.length - 1; i >= 0; i--) {
+            this.minHeapify(i);
         }
-
-     }
+    }
 }
