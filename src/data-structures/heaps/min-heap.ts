@@ -32,7 +32,7 @@ export class MinHeap<T extends number | string> {
             let min = this.heaps[0];
             this.heaps[0] = this.heaps[this.elements - 1];
             this.elements = this.elements - 1;
-            this.meanheapify(0);
+            this.minHeapify(0);
             return min;
         } else if (this.elements == 1) {
             let min = this.heaps[0];
@@ -47,7 +47,24 @@ export class MinHeap<T extends number | string> {
         index;
     }
 
-    private meanheapify(index: number): void {
-        index;
+    private minHeapify(index: number): void {
+        let left = index * 2 + 1;
+        let right = index * 2 + 2;
+        let smallest = index;
+
+        if (this.elements > left && this.heaps[smallest] > this.heaps[left]) {
+            smallest = left;
+        }
+
+        if (this.elements > right && this.heaps[smallest] > this.heaps[right]) {
+            smallest = right;
+        }
+
+        if (smallest != index) {
+            let tmp = this.heaps[smallest];
+            this.heaps[smallest] = this.heaps[index];
+            this.heaps[index] = tmp;
+            this.minHeapify(smallest);
+        }
     }
 }
