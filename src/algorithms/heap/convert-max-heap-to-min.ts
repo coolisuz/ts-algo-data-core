@@ -2,7 +2,7 @@ import { MinHeap } from "../../data-structures/heaps";
 
 /**
  * Converts a max heap array to a min heap array
- * 
+ *
  * Takes an array representing a max heap and converts it to an array
  * representing a min heap containing the same elements. The conversion
  * is done using the MinHeap's buildHeap method for optimal performance.
@@ -19,8 +19,8 @@ import { MinHeap } from "../../data-structures/heaps";
  */
 export function convertMax(maxHeap: number[]): number[] {
     const minHeapInstance = new MinHeap<number>();
-    
+
     minHeapInstance.buildHeap([...maxHeap]);
-    
+
     return minHeapInstance.heaps;
 }
