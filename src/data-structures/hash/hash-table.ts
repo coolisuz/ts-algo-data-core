@@ -1,4 +1,4 @@
-import { HashEntry } from './hash-entry';
+import { HashEntry } from "./hash-entry";
 
 /**
  * A generic hash table implementation with separate chaining for collision resolution
@@ -14,8 +14,16 @@ export class HashTable<T> {
         this.size = 0;
         this.bucket = [];
 
-        for (var i=0; i<this.slots; i++){
+        for (var i = 0; i < this.slots; i++) {
             this.bucket[i] = null;
-          }
+        }
+    }
+
+    getSize(): number {
+        return this.size;
+    }
+
+    isEmpty(): boolean {
+        return this.getSize() === 0;
     }
 }
