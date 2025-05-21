@@ -26,4 +26,10 @@ export class HashTable<T> {
     isEmpty(): boolean {
         return this.getSize() === 0;
     }
+
+    getIndex(key: number): number {
+        let index = key % this.slots;
+
+        return index;
+    }
 }
