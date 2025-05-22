@@ -159,6 +159,40 @@ describe("HashTable", () => {
         });
     });
 
+    describe("search", () => {
+        test("should return value for existing key", () => {
+            const table = new HashTable<string>(5);
+
+            table.insert(10, "apple");
+            table.insert(25, "banana");
+
+            expect(table.search(10)).toBe("apple");
+            expect(table.search(25)).toBe("banana");
+        });
+
+        test("should return undefined for non-existing key", () => {
+            const table = new HashTable<number>(5);
+
+            table.insert(15, 100);
+
+            expect(table.search(99)).toBeUndefined();
+            expect(table.search(0)).toBeUndefined();
+        });
+
+        test("should find correct value in collision chain", () => {
+            const table = new HashTable<string>(3);
+
+            // Keys 4 and 7 both hash to index 1 (4%3=1, 7%3=1)
+            table.insert(4, "first");
+            table.insert(7, "second");
+            table.insert(10, "third"); // 10%3=1, another collision
+
+            expect(table.search(4)).toBe("first");
+            expect(table.search(7)).toBe("second");
+            expect(table.search(10)).toBe("third");
+        });
+    });
+
     describe("integration tests", () => {
         test("should maintain consistency between getSize and isEmpty", () => {
             const table = new HashTable<string>(5);
