@@ -154,4 +154,27 @@ export class HashTable<T> {
             }
         }
     }
+
+    /**
+     * Searches for a key in the hash table and returns its associated value.
+     * Traverses the chain in case of collisions to find the exact key match.
+     *
+     * @time O(1) average case, O(n) worst case where n is the length of the chain
+     * @space O(1) - No extra space used
+     * @param {number} key - The key to search for
+     * @returns {T | undefined} The value associated with the key or undefined if not found
+     */
+    search(key: number): T | undefined {
+        const index = this.getIndex(key);
+        let current = this.bucket[index];
+
+        while (current !== null) {
+            if (current.key === key) {
+                return current.data;
+            }
+            current = current.next;
+        }
+
+        return undefined;
+    }
 }
