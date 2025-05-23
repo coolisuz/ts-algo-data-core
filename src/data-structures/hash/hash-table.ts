@@ -74,6 +74,39 @@ export class HashTable<T> {
     }
 
     /**
+     * Inserts a key-value pair into the hash table or updates existing value.
+     * Uses separate chaining to handle collisions by maintaining linked lists in each bucket.
+     *
+     * @time O(1) average case, O(n) worst case where n is the length of the chain
+     * @space O(1) - Only creates one new entry if needed
+     * @param {number} key - The key to insert or update
+     * @param {T} value - The value to associate with the key
+     */
+    insert(key: number, value: T): void {
+        const index = this.getIndex(key);
+
+        if (this.bucket[index] === null) {
+            this.bucket[index] = new HashEntry(key, value);
+            this.size++;
+        } else {
+            let head: HashEntry<T> | null = this.bucket[index];
+
+            while (head !== null) {
+                if (head.key === key) {
+                    head.data = value;
+                    return;
+                }
+                head = head.next;
+            }
+
+            const newEntry = new HashEntry(key, value);
+            newEntry.next = this.bucket[index];
+            this.bucket[index] = newEntry;
+            this.size++;
+        }
+    }
+
+    /**
      * Resizes the hash table by doubling the number of slots and rehashing all elements.
      * This helps maintain good performance by reducing collisions as the table grows.
      *

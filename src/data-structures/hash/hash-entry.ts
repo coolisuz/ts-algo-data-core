@@ -4,7 +4,7 @@
  */
 export class HashEntry<T> {
     readonly key: number;
-    readonly data: T;
+    data: T;
     next: HashEntry<T> | null;
 
     constructor(key: number, data: T) {
