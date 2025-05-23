@@ -127,6 +127,38 @@ describe("HashTable", () => {
         });
     });
 
+    describe("insert", () => {
+        test("should insert key-value pair into empty table", () => {
+            const table = new HashTable<string>(5);
+
+            table.insert(10, "apple");
+
+            expect(table.getSize()).toBe(1);
+            expect(table.isEmpty()).toBe(false);
+        });
+
+        test("should handle collisions by chaining entries", () => {
+            const table = new HashTable<string>(3);
+
+            // Both keys will hash to same index: 4 % 3 = 1, 7 % 3 = 1
+            table.insert(4, "first");
+            table.insert(7, "second");
+
+            expect(table.getSize()).toBe(2);
+            expect(table.isEmpty()).toBe(false);
+        });
+
+        test("should update existing key with new value", () => {
+            const table = new HashTable<number>(5);
+
+            table.insert(15, 100);
+            expect(table.getSize()).toBe(1);
+
+            table.insert(15, 200);
+            expect(table.getSize()).toBe(1);
+        });
+    });
+
     describe("integration tests", () => {
         test("should maintain consistency between getSize and isEmpty", () => {
             const table = new HashTable<string>(5);
