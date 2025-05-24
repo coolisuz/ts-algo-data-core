@@ -4,3 +4,4 @@ export * from "./graph.interface";
 export * from "./stack.interface";
 export * from "./queue.interface";
 export * from "./heap.interface";
+export * from "./hash.interface";
