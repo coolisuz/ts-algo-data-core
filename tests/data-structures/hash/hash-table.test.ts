@@ -232,6 +232,45 @@ describe("HashTable", () => {
         });
     });
 
+    describe("load factor", () => {
+        test("should calculate load factor correctly", () => {
+            const table = new HashTable<string>(4);
+
+            expect(table.getLoadFactor()).toBe(0);
+
+            table.insert(1, "a");
+            expect(table.getLoadFactor()).toBe(0.25);
+
+            table.insert(2, "b");
+            expect(table.getLoadFactor()).toBe(0.5);
+        });
+
+        test("should automatically resize when load factor exceeds threshold", () => {
+            const table = new HashTable<string>(4, 0.75);
+
+            table.insert(1, "a");
+            table.insert(2, "b");
+            table.insert(3, "c");
+            expect(table.getLoadFactor()).toBe(0.75);
+
+            table.insert(4, "d");
+            expect(table.getLoadFactor()).toBe(0.5);
+
+            expect(table.search(1)).toBe("a");
+            expect(table.search(4)).toBe("d");
+        });
+
+        test("should work with custom load factor threshold", () => {
+            const table = new HashTable<number>(3, 0.6);
+
+            table.insert(1, 100);
+            expect(table.getLoadFactor()).toBeCloseTo(0.33, 2);
+
+            table.insert(2, 200);
+            expect(table.getLoadFactor()).toBeCloseTo(0.33, 2);
+        });
+    });
+
     describe("integration tests", () => {
         test("should maintain consistency between getSize and isEmpty", () => {
             const table = new HashTable<string>(5);
