@@ -20,16 +20,21 @@ export class HashTable<T> {
     /** Array of hash entries forming the hash table buckets */
     private bucket: Array<HashEntry<T> | null>;
 
+    /** Maximum load factor before resizing (default: 0.75) */
+    private readonly maxLoadFactor: number;
+
     /**
      * Creates a new hash table with the specified number of slots
      *
      * @time O(n) - Where n is the number of slots
      * @space O(n) - Creates array of n slots
      * @param {number} slots - Number of slots to initialize (default: 10)
+     * @param {number} maxLoadFactor - Maximum load factor before resizing (default: 0.75)
      */
-    constructor(slots: number = 10) {
+    constructor(slots: number = 10, maxLoadFactor: number = 0.75) {
         this.slots = slots;
         this.size = 0;
+        this.maxLoadFactor = maxLoadFactor;
         this.bucket = [];
 
         for (var i = 0; i < this.slots; i++) {
@@ -74,6 +79,29 @@ export class HashTable<T> {
     }
 
     /**
+     * Calculates the current load factor of the hash table.
+     * Load factor = number of elements / number of slots
+     *
+     * @time O(1) - Constant time operation
+     * @space O(1) - No extra space used
+     * @returns {number} The current load factor
+     */
+    getLoadFactor(): number {
+        return this.size / this.slots;
+    }
+
+    /**
+     * Checks if the hash table needs to be resized based on load factor.
+     *
+     * @time O(1) - Constant time operation
+     * @space O(1) - No extra space used
+     * @returns {boolean} True if resize is needed, false otherwise
+     */
+    private needsResize(): boolean {
+        return this.getLoadFactor() > this.maxLoadFactor;
+    }
+
+    /**
      * Inserts a key-value pair into the hash table or updates existing value.
      * Uses separate chaining to handle collisions by maintaining linked lists in each bucket.
      *
@@ -103,6 +131,10 @@ export class HashTable<T> {
             newEntry.next = this.bucket[index];
             this.bucket[index] = newEntry;
             this.size++;
+        }
+
+        if (this.needsResize()) {
+            this.resize();
         }
     }
 
