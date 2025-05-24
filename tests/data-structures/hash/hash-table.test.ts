@@ -193,6 +193,45 @@ describe("HashTable", () => {
         });
     });
 
+    describe("delete", () => {
+        test("should delete existing key and return true", () => {
+            const table = new HashTable<string>(5);
+
+            table.insert(10, "apple");
+            table.insert(25, "banana");
+
+            expect(table.delete(10)).toBe(true);
+            expect(table.getSize()).toBe(1);
+            expect(table.search(10)).toBeUndefined();
+            expect(table.search(25)).toBe("banana");
+        });
+
+        test("should return false for non-existing key", () => {
+            const table = new HashTable<number>(5);
+
+            table.insert(15, 100);
+
+            expect(table.delete(99)).toBe(false);
+            expect(table.getSize()).toBe(1);
+            expect(table.search(15)).toBe(100);
+        });
+
+        test("should delete correctly from collision chain", () => {
+            const table = new HashTable<string>(3);
+
+            // Keys 4, 7, 10 all hash to index 1
+            table.insert(4, "first");
+            table.insert(7, "second");
+            table.insert(10, "third");
+
+            expect(table.delete(7)).toBe(true);
+            expect(table.getSize()).toBe(2);
+            expect(table.search(4)).toBe("first");
+            expect(table.search(7)).toBeUndefined();
+            expect(table.search(10)).toBe("third");
+        });
+    });
+
     describe("integration tests", () => {
         test("should maintain consistency between getSize and isEmpty", () => {
             const table = new HashTable<string>(5);
