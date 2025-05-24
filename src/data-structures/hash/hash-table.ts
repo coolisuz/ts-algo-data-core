@@ -177,4 +177,35 @@ export class HashTable<T> {
 
         return undefined;
     }
+
+    /**
+     * Deletes a key-value pair from the hash table.
+     * Handles chain restructuring when removing nodes from collision chains.
+     *
+     * @time O(1) average case, O(n) worst case where n is the length of the chain
+     * @space O(1) - No extra space used
+     * @param {number} key - The key to delete
+     * @returns {boolean} True if key was found and deleted false otherwise
+     */
+    delete(key: number): boolean {
+        const index = this.getIndex(key);
+        let current = this.bucket[index];
+
+        if (current !== null && current.key === key) {
+            this.bucket[index] = current.next;
+            this.size--;
+            return true;
+        }
+
+        while (current !== null && current.next !== null) {
+            if (current.next.key === key) {
+                current.next = current.next.next;
+                this.size--;
+                return true;
+            }
+            current = current.next;
+        }
+
+        return false;
+    }
 }
