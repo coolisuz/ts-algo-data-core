@@ -8,7 +8,7 @@
  * @param {T[][]} arr - The input array of pairs
  * @returns {T[][]} - Array containing all symmetric pairs found
  */
-export function findSymmetric<T>(arr: T[][]): T[][] {
+export function findSymmetricLegacy<T>(arr: T[][]): T[][] {
     const result = [];
 
     for (let i = 0; i < arr.length - 1; i++) {
@@ -19,6 +19,37 @@ export function findSymmetric<T>(arr: T[][]): T[][] {
                 result.push(symmetric);
                 result.push(arr[j]);
             }
+        }
+    }
+
+    return result;
+}
+
+/**
+ * Given an array of pairs, finds all symmetric pairs using hash map for efficient lookup.
+ * Two pairs [a,b] and [c,d] are symmetric if a = d and b = c.
+ *
+ * @time O(n) - where n is the number of pairs (hash map approach)
+ * @space O(n) - where n is the number of pairs stored in hash map
+ *
+ * @param {T[][]} arr - The input array of pairs
+ * @returns {T[][]} - Array containing all symmetric pairs found
+ */
+export function findSymmetric<T>(arr: T[][]): T[][] {
+    const map = new Map<string, T[]>();
+    const result: T[][] = [];
+
+    for (const pair of arr) {
+        const [a, b] = pair;
+        const key = `${a},${b}`;
+        const symmetricKey = `${b},${a}`;
+
+        if (map.has(symmetricKey)) {
+            const symmetricPair = map.get(symmetricKey)!;
+            result.push(symmetricPair);
+            result.push(pair);
+        } else {
+            map.set(key, pair);
         }
     }
 
