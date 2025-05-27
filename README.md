@@ -17,9 +17,9 @@ This repository serves as both a practical reference and learning resource for c
  - [x] Linked List
  - [x] Stack
  - [x] Queue
- - [ ] Hash Table
+ - [x] Hash Table
  - [x] Binary Search Tree
- - [ ] Heap / Priority Queue
+ - [x] Heap / Priority Queue
  - [x] Graph
  - [x] Trie
  - [x] AVL Tree
